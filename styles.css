@@ -67,7 +67,7 @@ h3 { font-size: inherit; font-weight: 400; }
   transition: background-color .2s var(--ease), transform .2s var(--ease);
 }
 .btn:active { transform: scale(.97); }
-.btn--light { background: var(--surface); color: var(--text); }
+.btn--light { background: var(--surface); color: var(--text); border: 1px solid #E6E6E9; padding: 7px 15px; }
 .btn--light:hover { background: var(--hover-light); }
 .btn--dark {
   background: var(--text); color: #fff;

@@ -8,7 +8,7 @@
 }
 
 :root {
-  --bg: #F5F5F5;
+  --bg: #FFFFFF;
   --surface: #FFFFFF;
   --muted-bg: #F2F2F2;
   --soft-bg: #F4F4F4;
@@ -99,10 +99,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* Кнопки — как «Связаться» на главной: белая пилюля 36px, отступы 8/16 */
 .icon-btn {
   height: 36px;
-  padding: 8px 16px;
+  padding: 0 15px;
   display: inline-flex; align-items: center; justify-content: center;
   border-radius: 70px;
   background: var(--surface);
+  border: 1px solid #E6E6E9; /* как у кнопок соцсетей на главной */
   transition: background-color .2s var(--ease), transform .2s var(--ease);
 }
 .icon-btn:hover { background: var(--hover-light); }
