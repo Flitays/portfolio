@@ -351,6 +351,43 @@ h3 { font-size: inherit; font-weight: 400; }
 }
 .achievements__list li::marker { color: rgba(0, 0, 0, .35); }
 
+/* ---------- Toolkit (как Dock в macOS) ---------- */
+.toolkit { gap: 0; }
+.dock {
+  --base: 56px;
+  display: flex; align-items: flex-end; justify-content: center;
+  gap: 12px;
+  height: calc(var(--base) + 40px);
+  padding-top: 40px; /* увеличенная иконка растёт в этот отступ */
+}
+.dock__item {
+  --size: var(--base);
+  position: relative;
+  width: var(--size); height: var(--size);
+  flex: none;
+  transition: width .25s cubic-bezier(.25, .1, .25, 1), height .25s cubic-bezier(.25, .1, .25, 1);
+}
+.dock.is-active .dock__item { transition-duration: .08s; }
+.dock__item img {
+  width: 100%; height: 100%;
+  border-radius: 22.5%;
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, .08));
+  -webkit-user-drag: none; user-select: none;
+}
+@media (max-width: 767px), (hover: none) {
+  .dock {
+    --base: 64px;
+    display: grid;
+    grid-template-columns: repeat(4, var(--base));
+    justify-content: center;
+    gap: 16px;
+    height: auto;
+    padding-top: 16px;
+  }
+  .dock__item[data-tip]::after { display: none; }
+}
+@media (max-width: 360px) { .dock { --base: 56px; gap: 12px; } }
+
 /* ---------- About ---------- */
 .about { width: 100%; max-width: 538px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
 .photos {

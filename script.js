@@ -190,6 +190,39 @@
     pre.observe(document.querySelector('.photos'));
   }
 
+  // Toolkit: увеличение иконок рядом с курсором, как в Dock macOS
+  const dock = document.querySelector('.dock');
+  const dockMq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 768px)');
+  if (dock) {
+    const items = [...dock.querySelectorAll('.dock__item')];
+    const BASE = 56, MAX = 88, RANGE = 110;
+    let centers = [];
+    let raf = 0;
+    const reset = () => {
+      dock.classList.remove('is-active');
+      items.forEach((it) => it.style.removeProperty('--size'));
+    };
+    dock.addEventListener('mouseenter', () => {
+      if (!dockMq.matches) return;
+      // центры иконок в базовом размере — от них считаем расстояние до курсора
+      centers = items.map((it) => { const r = it.getBoundingClientRect(); return r.left + r.width / 2; });
+      dock.classList.add('is-active');
+    });
+    dock.addEventListener('mousemove', (e) => {
+      if (!dockMq.matches || !centers.length) return;
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        items.forEach((it, i) => {
+          const d = Math.abs(e.clientX - centers[i]);
+          const k = Math.exp(-((d / RANGE) ** 2));
+          it.style.setProperty('--size', `${(BASE + (MAX - BASE) * k).toFixed(1)}px`);
+        });
+      });
+    });
+    dock.addEventListener('mouseleave', () => { cancelAnimationFrame(raf); centers = []; reset(); });
+    dockMq.addEventListener('change', reset);
+  }
+
   // Год в футере
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
