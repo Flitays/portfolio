@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Education EcoSystem — кейс Александра Лекомцева</title>
+  <meta name="description" content="Превратил пять разрозненных инструментов в единую экосистему на базе Ant Design: AI Assistant, маркетплейс, конструктор курсов, платформа студента и SSO.">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Education EcoSystem — кейс Александра Лекомцева">
+  <meta property="og:image" content="../assets/img/proj-edu.png">
+  <meta name="theme-color" content="#F5F5F5">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <link rel="preload" href="../assets/fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../case.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <header class="case-header">
+    <a class="icon-btn" href="../" aria-label="На главную" data-tip="На главную" data-tip-pos="bottom"><img src="../assets/cases/icons/back.svg" alt=""></a>
+    <a class="icon-btn icon-btn--text" href="https://t.me/flitay" target="_blank" rel="noopener">Связаться</a>
+  </header>
+
+  <main class="case" id="main">
+    <!-- Обложка, описание, «Коротко о кейсе» -->
+    <div class="case-top">
+      <figure class="picture reveal"><img src="../assets/img/proj-edu.png" alt="Экраны мобильного приложения Education EcoSystem" width="1040" height="692"></figure>
+      <section class="block reveal">
+        <div class="inset">
+          <h1 class="h1 title-row"><img src="../assets/cases/icons/logo-education.svg" alt="">Education EcoSystem</h1>
+        </div>
+        <div class="inset">
+          <p>Превратил пять разрозненных инструментов в&nbsp;единую экосистему на&nbsp;базе Ant Design. Провёл 100+ качественных интервью и&nbsp;выявил боли на&nbsp;каждом уровне, от&nbsp;студента до&nbsp;администратора.</p>
+          <div class="points">
+            <div class="point"><span class="point__label">Компания</span><a class="company-link" href="https://inpsycho.ru/" target="_blank" rel="noopener" data-tip="Перейти на сайт">МИП<img src="../assets/cases/icons/link-a.svg" alt=""></a></div>
+            <div class="point"><span class="point__label">Роль</span><span>Lead Product Designer</span></div>
+            <div class="point"><span class="point__label">Период</span><span>2024 — Сейчас</span></div>
+          </div>
+        </div>
+        </section>
+      <!-- Коротко о кейсе -->
+    <section class="summary reveal" aria-labelledby="summary-title">
+      <h2 id="summary-title" data-toc="1" data-toc-label="Коротко о кейсе">
+        <button class="summary__top" type="button" aria-expanded="false" aria-controls="summary-panel">
+          Коротко о кейсе
+          <span class="summary__chevron" aria-hidden="true"></span>
+        </button>
+      </h2>
+      <div class="summary__panel" id="summary-panel" role="region" hidden>
+        <div>
+          <div class="summary__body">
+            <div class="summary__item">
+              <span class="summary__label">Задача</span>
+              <p>Пять сервисов университета — LMS, AI-ассистент, маркетплейс курсов, конструктор и&nbsp;авторизация — жили отдельно. Пользователи тратили время на&nbsp;поиск нужных разделов, повторную регистрацию и&nbsp;попытки правильно сформулировать запрос к&nbsp;ИИ.</p>
+            </div>
+            <div class="summary__item">
+              <span class="summary__label">Решение</span>
+              <p>Провёл 100+ качественных интервью и&nbsp;объединил сервисы в&nbsp;экосистему на&nbsp;базе Ant Design: AI-ассистент с&nbsp;уточняющими вопросами вместо промптов, маркетплейс с&nbsp;каталогом и&nbsp;фильтрами, блочный конструктор курсов, дашборд студента и&nbsp;единый вход через SSO.</p>
+            </div>
+            <div class="summary__item">
+              <span class="summary__label">Результат</span>
+              <p>Сотрудники активно пользуются AI-ассистентом, авторы сами собирают и&nbsp;публикуют курсы без разработчиков, а&nbsp;одна учётная запись открывает доступ ко&nbsp;всей экосистеме.</p>
+            </div>
+            <div class="summary__thumbs">
+              <a class="thumb" href="#ai" data-tip="AI Assistant"><img src="../assets/cases/education/ai.jpg" alt="AI Assistant"></a>
+              <a class="thumb" href="#marketplace" data-tip="Content Marketplace"><img src="../assets/cases/education/marketplace.jpg" alt="Content Marketplace"></a>
+              <a class="thumb" href="#builder" data-tip="Course Builder"><img src="../assets/cases/education/builder.jpg" alt="Course Builder"></a>
+              <a class="thumb" href="#student" data-tip="Student Learning Platform"><img src="../assets/cases/education/student.jpg" alt="Student Learning Platform"></a>
+              <a class="thumb" href="#sso" data-tip="Single Sign-On"><img src="../assets/cases/education/sso.jpg" alt="Single Sign-On"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+
+    <!-- AI Assistant -->
+    <section class="block" id="ai">
+      <figure class="picture picture--cover reveal"><img src="../assets/cases/education/ai.jpg" alt="Интерфейс AI Assistant" loading="lazy" width="1364" height="786"></figure>
+      <div class="inset stack-32 reveal">
+        <div class="stack-16">
+          <h2 class="h3 title-row" data-toc="1"><img src="../assets/cases/icons/ai.svg" alt="">AI Assistant</h2>
+          <p class="lead">Наши исследования показали: основная боль в&nbsp;работе с&nbsp;ИИ&nbsp;— это не&nbsp;сама технология, а&nbsp;умение формулировать запросы. Большинство пользователей не&nbsp;задают контекст и&nbsp;требования к&nbsp;результату, из-за чего ответы оказываются общими или нерелевантными.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Моя задача</h3>
+          <p>Спроектировать опыт, который снимет этот барьер и&nbsp;позволит получать качественные результаты без необходимости изучать prompt-engineering.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Что я сделал</h3>
+          <div class="prose">
+            <p>Работа началась с&nbsp;анализа потенциальных сценариев использования ИИ внутри образовательной деятельности.</p>
+            <p>Для этого я&nbsp;использовал качественные методы исследования:</p>
+            <ul>
+              <li>глубинные интервью 1-на-1 для выявления болей</li>
+              <li>наблюдение за&nbsp;сотрудниками в&nbsp;процессе выполнения образовательных задач</li>
+              <li>юзабилити-тестирование прототипов в&nbsp;Figma</li>
+            </ul>
+            <p>Исследования показали, что пользователям сложно формулировать структурированные запросы, но&nbsp;при этом их&nbsp;задачи повторяются и&nbsp;могут быть описаны через набор параметров.</p>
+            <p>На&nbsp;основе этого я&nbsp;сосредоточился на&nbsp;двух направлениях:</p>
+            <ul>
+              <li>спроектировал пользовательский сценарий, в&nbsp;котором запрос формируется через последовательность уточняющих вопросов</li>
+              <li>разработал административный конструктор сценариев, позволяющий настраивать структуру будущего запроса</li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Результат</h3>
+          <div class="prose">
+            <p>Вместо написания сложного текстового запроса пользователь проходит короткую последовательность уточняющих вопросов, после чего система автоматически формирует структурированный запрос к&nbsp;модели. Также систему можно масштабировать, добавляя новые сценарии без участия разработчиков.</p>
+            <p>Подход позволил значительно снизить порог входа, особенно для внутренних сотрудников учреждения, которые затем активно стали пользоваться продуктом.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" role="presentation"></div>
+
+    <!-- Content Marketplace -->
+    <section class="block" id="marketplace">
+      <figure class="picture picture--cover reveal"><img src="../assets/cases/education/marketplace.jpg" alt="Экраны маркетплейса образовательного контента" loading="lazy" width="1286" height="741"></figure>
+      <div class="inset stack-32 reveal">
+        <div class="stack-16">
+          <h2 class="h3 title-row" data-toc="1"><img src="../assets/cases/icons/marketplace.svg" alt="">Content Marketplace</h2>
+          <p class="lead">Было большое количество образовательного контента: курсы, программы, материалы и&nbsp;дополнительные образовательные продукты. Но&nbsp;пользователям было сложно ориентироваться в&nbsp;этом обилии.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Моя задача</h3>
+          <p>Спроектировать маркетплейс образовательного контента, который можно будет масштабировать и&nbsp;легко поддерживать.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Что я сделал</h3>
+          <div class="prose">
+            <p>Начал с&nbsp;декомпозиции сценариев пользователей и&nbsp;понимания того, как люди выбирают образовательный контент.</p>
+            <p>Основная сложность заключалась в&nbsp;том, что образовательные продукты сильно различаются между собой: у&nbsp;них разные форматы, длительность, уровень сложности и&nbsp;цели обучения. Поэтому важно было создать интерфейс, который позволит ориентироваться в&nbsp;этом количестве материалов.</p>
+            <p>В&nbsp;рамках проектирования:</p>
+            <ul>
+              <li>сформировал структуру каталога образовательного контента</li>
+              <li>продумал систему навигации и&nbsp;фильтрации</li>
+              <li>спроектировал карточки образовательных продуктов</li>
+              <li>проработал сценарии выбора и&nbsp;изучения материалов</li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Результат</h3>
+          <p>Пользователи получили единое пространство для поиска и&nbsp;выбора образовательных программ по&nbsp;ключевым параметрам.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" role="presentation"></div>
+
+    <!-- Course Builder -->
+    <section class="block" id="builder">
+      <figure class="picture picture--cover reveal"><img src="../assets/cases/education/builder.jpg" alt="Интерфейс конструктора курсов" loading="lazy" width="1286" height="741"></figure>
+      <div class="inset stack-32 reveal">
+        <div class="stack-16">
+          <h2 class="h3 title-row" data-toc="1"><img src="../assets/cases/icons/builder.svg" alt="">Course Builder for Marketplace</h2>
+          <p class="lead">Возникла необходимость быстро создавать и&nbsp;управлять образовательными программами внутри системы. До&nbsp;этого создание курсов происходило через разработчиков или требовало сложных технических действий.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Моя задача</h3>
+          <p>Позволить авторам собирать курсы без технических навыков: структурировать программу обучения, создавать уроки, добавлять материалы и&nbsp;задания, а&nbsp;затем публиковать курс на&nbsp;платформе.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Что я сделал</h3>
+          <div class="prose">
+            <p>Работа началась с&nbsp;анализа существующих решений: через качественные интервью изучил инструменты, которые уже используют авторы курсов, чтобы понять их&nbsp;привычные сценарии работы и&nbsp;ожидания от&nbsp;интерфейса.</p>
+            <p>В&nbsp;рамках проектирования я&nbsp;сосредоточился на&nbsp;нескольких ключевых направлениях:</p>
+            <ul>
+              <li>продумать вложенность курса с&nbsp;разным типом доступа</li>
+              <li>спроектировать редактор уроков на&nbsp;основе блочной структуры</li>
+              <li>проработать сценарии прохождения курса глазами студента</li>
+            </ul>
+            <p>Отдельное внимание я&nbsp;уделил гибкости системы: преподаватели могли постепенно собирать курс, редактировать структуру и&nbsp;тестировать материалы в&nbsp;режиме просмотра так&nbsp;же, как их&nbsp;будет видеть студент.</p>
+          </div>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Результат</h3>
+          <div class="prose">
+            <p>Авторы получили возможность самостоятельно создавать и&nbsp;редактировать курсы.</p>
+            <p>Это позволило:</p>
+            <ul>
+              <li>сократить время запуска образовательных программ</li>
+              <li>снизить зависимость от&nbsp;разработчиков</li>
+              <li>упростить масштабирование образовательного контента внутри платформы</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" role="presentation"></div>
+
+    <!-- Student Learning Platform -->
+    <section class="block" id="student">
+      <figure class="picture picture--cover reveal"><img src="../assets/cases/education/student.jpg" alt="Экраны платформы студента" loading="lazy" width="1364" height="786"></figure>
+      <div class="inset stack-32 reveal">
+        <div class="stack-16">
+          <h2 class="h3 title-row" data-toc="1"><img src="../assets/cases/icons/student.svg" alt="">Student Learning Platform</h2>
+          <div class="prose lead">
+            <p>Анализ пользовательских сценариев и&nbsp;внутренних метрик показал, что пользователи тратят много времени на&nbsp;поиск нужных сервисов. Ключевые функции были распределены по&nbsp;разным разделам, даже базовые задачи требовали лишних переходов и&nbsp;«поиска по&nbsp;системе».</p>
+            <p>В&nbsp;итоге пользователь тратил время не&nbsp;на&nbsp;обучение, а&nbsp;на&nbsp;попытки разобраться, где что находится.</p>
+          </div>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Моя задача</h3>
+          <p>Освежить визуал и&nbsp;сократить количество шагов между разделами, а&nbsp;именно переосмыслить структуру продукта. Собрать разрозненные части в&nbsp;цельный и&nbsp;управляемый пользовательский опыт. Параллельно заниматься интеграцией сервисов (AI, MarketPlace, Constructor, SSO) и&nbsp;расширением точек входа между ними.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Что я сделал</h3>
+          <div class="prose">
+            <p>Работа началась с&nbsp;анализа пользовательских сценариев и&nbsp;поведения студентов внутри системы:</p>
+            <ul>
+              <li>разобрал реальные сценарии студентов: как они учатся, где теряются, какие задачи повторяют каждый день</li>
+              <li>нашёл ряд болевых точек, расставил их&nbsp;по&nbsp;приоритетам и&nbsp;помогал с&nbsp;планированием задач</li>
+              <li>изучал лучшие практики современных образовательных платформ и&nbsp;защищал концепт первоначальной системы перед руководством</li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Результат</h3>
+          <div class="prose">
+            <p>Переработал навигацию внутри системы и&nbsp;спроектировал главную страницу как центральный дашборд студента. Также разработал систему переиспользуемых виджетов с&nbsp;универсальными размерами под наш layout, которая позволяет отображать важную информацию в&nbsp;любом месте системы.</p>
+            <p>В&nbsp;итоге пользователь сразу получает доступ к&nbsp;ключевой информации и&nbsp;основным действиям без необходимости искать их&nbsp;в&nbsp;разных разделах.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider" role="presentation"></div>
+
+    <!-- SSO -->
+    <section class="block" id="sso">
+      <figure class="picture picture--cover reveal"><img src="../assets/cases/education/sso.jpg" alt="Экран единого входа SSO" loading="lazy" width="1364" height="786"></figure>
+      <div class="inset stack-32 reveal">
+        <div class="stack-16">
+          <h2 class="h3 title-row" data-toc="1"><img src="../assets/cases/icons/sso.svg" alt="">Single Sign-On</h2>
+          <p class="lead">В&nbsp;экосистеме университета существовало несколько независимых сервисов, каждый из&nbsp;них требовал отдельной регистрации. Из-за этого пользователи сталкивались с&nbsp;повторной регистрацией, что увеличивало количество отказов на&nbsp;этапе первого входа и&nbsp;усложняло переход между продуктами.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Моя задача</h3>
+          <p>Спроектировать единый сценарий авторизации, который позволит пользователям получать доступ ко&nbsp;всем сервисам через одну учётную запись.</p>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Что я сделал</h3>
+          <div class="prose">
+            <p>Провёл анализ пользовательских сценариев входа и&nbsp;точек взаимодействия с&nbsp;авторизацией внутри экосистемы.</p>
+            <p>Определил ключевые пользовательские флоу:</p>
+            <ul>
+              <li>экран авторизации и&nbsp;быстрый переход к&nbsp;сервису</li>
+              <li>сценарии регистрации и&nbsp;восстановления доступа, объединение аккаунтов и&nbsp;2FA</li>
+              <li>переходы между сервисами и&nbsp;увеличение точек входа в&nbsp;них</li>
+            </ul>
+          </div>
+        </div>
+        <div class="stack-16">
+          <h3 class="h4">Результат</h3>
+          <div class="prose">
+            <p>Пользователь проходит регистрацию один раз и&nbsp;получает доступ ко&nbsp;всей цифровой экосистеме. Это:</p>
+            <ul>
+              <li>снизило барьер входа в&nbsp;сервисы</li>
+              <li>упростило переходы между продуктами</li>
+              <li>сформировало единый пользовательский опыт взаимодействия с&nbsp;сервисами</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <nav class="toc" aria-label="Содержание кейса"><div class="toc__panel"><ol class="toc__list"></ol></div></nav>
+
+  <nav class="case-nav" aria-label="Другие кейсы">
+    <a href="../kraevision/" data-tip="КраеВидение" aria-label="Предыдущий кейс: КраеВидение"><img src="../assets/cases/icons/nav-prev.svg" alt=""></a>
+    <a href="../#projects" data-tip="Все проекты" aria-label="Все проекты"><svg viewBox="0 0 20 20" fill="#1F1F1F" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1.8"/><rect x="11" y="3" width="6" height="6" rx="1.8"/><rect x="3" y="11" width="6" height="6" rx="1.8"/><rect x="11" y="11" width="6" height="6" rx="1.8"/></svg></a>
+    <a href="../navigator/" data-tip="Навигатор Карьеры" aria-label="Следующий кейс: Навигатор Карьеры"><img src="../assets/cases/icons/nav-next.svg" alt=""></a>
+  </nav>
+
+  <script src="../case.js" defer></script>
+</body>
+</html>

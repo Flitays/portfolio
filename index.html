@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Александр Лекомцев — Product Designer</title>
+  <meta name="description" content="Presentation, UX/UI & Product Designer. Разрабатываю digital продукты больше 5 лет. Открыт для работы на полную ставку и part-time.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Александр Лекомцев — Product Designer">
+  <meta property="og:description" content="Presentation, UX/UI & Product Designer. Разрабатываю digital продукты больше 5 лет.">
+  <meta property="og:image" content="assets/img/proj-edu.png">
+  <meta name="theme-color" content="#F5F5F5">
+  <link rel="icon" type="image/png" href="assets/img/favicon.png">
+  <link rel="preload" href="assets/fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти к содержанию</a>
+
+  <!-- 1. Header -->
+  <header class="header" id="top">
+    <div class="header__inner">
+      <a class="header__logo" href="#top" aria-label="Наверх" data-to-top>
+        <span class="header__name">Александр Лекомцев</span>
+        <span class="header__role">Product Designer</span>
+      </a>
+      <nav class="header__nav" aria-label="Основная навигация">
+        <span class="header__pill" aria-hidden="true"></span>
+        <a href="#projects" data-nav>Проекты</a>
+        <a href="#experience" data-nav>Опыт работы</a>
+        <a href="#about" data-nav>Обо мне</a>
+      </nav>
+      <div class="header__actions">
+        <a class="btn btn--light" href="https://t.me/flitay" target="_blank" rel="noopener">Связаться</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page" id="main">
+    <!-- 2. Avatar + Hero -->
+    <section class="intro reveal" aria-labelledby="hero-title">
+      <div class="avatar">
+        <video class="avatar__video" src="assets/video/avatar.mp4" poster="assets/video/avatar-poster.jpg"
+               autoplay muted loop playsinline preload="auto" aria-hidden="true"></video>
+      </div>
+      <p class="intro__hello">Привет! 👋🏻<br>Меня зовут Александр</p>
+    </section>
+
+    <section class="hero reveal">
+      <div class="hero__text">
+        <h1 class="title" id="hero-title">
+          <span class="accent-purple">Presentation</span>, UX/UI &amp; <span class="accent-blue">Product</span> Designer.<br>
+          Разрабатываю digital продукты больше 5&nbsp;лет, постоянно совершенствуя навыки
+        </h1>
+        <p class="hero__sub">Открыт для работы на полную ставку, с&nbsp;возможностью переезда и&nbsp;сотрудничества на&nbsp;part-time</p>
+      </div>
+      <a class="btn btn--dark" href="#" data-resume data-tip="Google Disk" data-tip-pos="bottom">Открыть резюме</a>
+    </section>
+
+    <!-- 3. Projects -->
+    <section class="section" id="projects" aria-label="Проекты">
+      <div class="projects">
+        <a class="card project project--link reveal" href="education/">
+          <div class="project__preview"><img src="assets/img/proj-edu.png" alt="Экраны мобильного приложения Education EcoSystem" loading="lazy" width="1040" height="692"></div>
+          <div class="project__head">
+            <h3 class="project__name"><img src="assets/img/logo-edu.svg" alt="" width="20" height="20">Education EcoSystem</h3>
+            <span class="muted">2024 — Сейчас</span>
+          </div>
+          <p class="project__desc muted">Превратил пять разрозненных инструментов в&nbsp;единую экосистему на&nbsp;базе Ant Design</p>
+          <ul class="tags"><li>Web</li><li>Mobile</li><li>DesignSystem</li><li>Branding</li></ul>
+        </a>
+
+        <a class="card project project--link reveal" href="navigator/">
+          <div class="project__preview"><img src="assets/img/proj-navigator.png" alt="Веб-интерфейс Навигатора Карьеры на планшете" loading="lazy" width="1040" height="692"></div>
+          <div class="project__head">
+            <h3 class="project__name"><img src="assets/img/logo-navigator.svg" alt="" width="20" height="20">Навигатор Карьеры</h3>
+            <span class="muted">2020 — 2024</span>
+          </div>
+          <p class="project__desc muted">Масштабируемый маркетплейс курсов контента для поиска и&nbsp;выбора образовательных программ по&nbsp;ключевым параметрам</p>
+          <ul class="tags"><li>Web</li><li>Mobile</li><li>DesignSystem</li><li>Branding</li></ul>
+        </a>
+
+        <article class="card project reveal">
+          <div class="project__preview"><img src="assets/img/proj-mip.png" alt="Главная страница сайта Московского института психоанализа" loading="lazy" width="1040" height="692"></div>
+          <div class="project__head">
+            <h3 class="project__name"><img src="assets/img/logo-mip-small.png" alt="" width="20" height="20">Московский институт психоанализа</h3>
+            <span class="muted">2025</span>
+          </div>
+          <p class="project__desc muted">Сделал редизайн «Главной», на&nbsp;основе статистики переходов пересобрал структуру и&nbsp;CTR на&nbsp;разделы вырос x2</p>
+          <ul class="tags"><li>Web</li><li>Mobile</li></ul>
+        </article>
+
+        <a class="card project project--link reveal" href="kraevision/">
+          <div class="project__preview"><img src="assets/img/proj-kraevidenie.png" alt="Интерфейс приложения КраеВидение на сенсорном столе" loading="lazy" width="1040" height="692"></div>
+          <div class="project__head">
+            <h3 class="project__name"><img src="assets/img/logo-kraevidenie.svg" alt="" width="20" height="20">КраеВидение</h3>
+            <span class="muted">2025</span>
+          </div>
+          <p class="project__desc muted">Интерактивное приложение для&nbsp;сенсорного стола Vinchi Era, установленного в&nbsp;школе посёлка Ола, Магаданской области.</p>
+          <ul class="tags"><li>App</li><li>DesignSystem</li></ul>
+        </a>
+      </div>
+    </section>
+
+    <!-- 4. Presentations -->
+    <section class="section" aria-labelledby="pres-title">
+      <h2 class="label reveal" id="pres-title">Презентации</h2>
+      <div class="presentations">
+        <article class="card pres reveal">
+          <div class="pres__preview"><img src="assets/img/pres-ikorka.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><h3>Икорка - стартап</h3><span class="muted">2026</span></div>
+        </article>
+        <article class="card pres reveal">
+          <div class="pres__preview"><img src="assets/img/pres-southbridge.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><h3>SouthBridge</h3><span class="muted">2025</span></div>
+        </article>
+        <article class="card pres reveal">
+          <div class="pres__preview"><img src="assets/img/pres-cyber.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><h3>Кибербезопасность</h3><span class="muted">2025</span></div>
+        </article>
+        <article class="card pres reveal">
+          <div class="pres__preview"><img class="r4" src="assets/img/pres-kadry.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><h3>Подготовка кадров</h3><span class="muted">2024</span></div>
+        </article>
+        <article class="card pres reveal">
+          <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-atomic.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><h3>Личное выступление</h3><span class="muted">2023</span></div>
+        </article>
+        <article class="card pres reveal">
+          <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-college.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><h3>План развития колледжа</h3><span class="muted">2023</span></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 5. Experience -->
+    <section class="section" id="experience" aria-labelledby="exp-title">
+      <div class="label-row reveal">
+        <h2 class="label" id="exp-title">Опыт работы</h2>
+        <span class="badge">5+ лет</span>
+      </div>
+
+      <div class="accordions">
+        <div class="accordion reveal">
+          <h3 class="accordion__heading">
+            <button class="accordion__top" type="button" aria-expanded="false" aria-controls="exp-1">
+              <img class="accordion__logo" src="assets/img/exp-mip.png" alt="" width="48" height="48">
+              <span class="accordion__text">
+                <span class="accordion__title">Lead Product Designer, МИП</span>
+                <span class="muted">Январь 2026 – Настоящее время</span>
+              </span>
+              <span class="accordion__chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="accordion__panel" id="exp-1" role="region" hidden>
+            <div class="accordion__body">
+              <p>Возглавляю направление продуктового дизайна образовательной экосистемы. Формирую продуктовые гипотезы, определяю пользовательские сценарии, участвую в&nbsp;планировании и&nbsp;развитии всех сервисов платформы.</p>
+              <div class="achievements">
+                <div class="achievements__head"><span class="achievements__icon" aria-hidden="true"></span>Достижения</div>
+                <ul class="achievements__list">
+                  <li>Перестроил путь от&nbsp;дизайна к&nbsp;разработке, внедрил структуру Figma-файлов с&nbsp;отдельными страницами Dev, Prod и&nbsp;Design Review</li>
+                  <li>Настроил сравнение каждой версии макета с&nbsp;предыдущей по&nbsp;фреймам: разработчик видит точечные изменения, а&nbsp;не&nbsp;перепроверяет весь файл. Количество уточнений после хендоффа снизилось в&nbsp;2&nbsp;раза</li>
+                  <li>Ввёл внутренний ассесмент дизайнеров и&nbsp;регулярные ретроспективы команды, результатом которого был понятный план роста</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion reveal">
+          <h3 class="accordion__heading">
+            <button class="accordion__top" type="button" aria-expanded="false" aria-controls="exp-2">
+              <img class="accordion__logo" src="assets/img/exp-mip.png" alt="" width="48" height="48">
+              <span class="accordion__text">
+                <span class="accordion__title">Product Designer, МИП</span>
+                <span class="muted">Март 2024 – Январь 2026</span>
+              </span>
+              <span class="accordion__chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="accordion__panel" id="exp-2" role="region" hidden>
+            <div class="accordion__body">
+              <p>Моя работа охватывает весь процесс разработки, от&nbsp;исследований и&nbsp;прототипирования до&nbsp;релиза и&nbsp;тестирования. Активно провожу качественные и&nbsp;участвую в&nbsp;количественных исследованиях, провожу интервью и&nbsp;составляю CJM/JTBD, что позволяет выявить боли/потребности пользователей, и&nbsp;улучшить их&nbsp;взаимодействие с&nbsp;продуктами.</p>
+              <p>Всегда работаю в&nbsp;тесном сотрудничестве с&nbsp;командой разработчиков, интегрируя компоненты в&nbsp;UI-киты и&nbsp;дизайн-системы для&nbsp;поддержки различных продуктов.</p>
+              <div class="achievements">
+                <div class="achievements__head"><span class="achievements__icon" aria-hidden="true"></span>Достижения</div>
+                <ul class="achievements__list">
+                  <li>Спроектировал 5 связанных сервисов: LMS, AI-ассистент, Маркетплейс курсов, Конструктор курсов, SSO</li>
+                  <li>Провёл 50+ интервью и&nbsp;наблюдательных сессий, построил CJM, JTBD и&nbsp;MindMap по&nbsp;всем ролям</li>
+                  <li>Создал дизайн-систему на&nbsp;базе Ant Design для&nbsp;Web, PWA и&nbsp;Mobile</li>
+                  <li>Обучил многих дизайнеров и&nbsp;стажеров, которые успешно продолжили работу в&nbsp;проектах команды.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion reveal">
+          <h3 class="accordion__heading">
+            <button class="accordion__top" type="button" aria-expanded="false" aria-controls="exp-3">
+              <span class="accordion__logo accordion__logo--freelance"><img src="assets/img/exp-freelance.svg" alt="" width="27" height="27"></span>
+              <span class="accordion__text">
+                <span class="accordion__title">UX/UI Designer, Freelance</span>
+                <span class="muted">Июль 2022 – Настоящее время</span>
+              </span>
+              <span class="accordion__chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="accordion__panel" id="exp-3" role="region" hidden>
+            <div class="accordion__body">
+              <p>Беру проекты напрямую от&nbsp;заказчиков: проектирую интерфейсы, делаю презентации и&nbsp;графику для&nbsp;бизнеса, а&nbsp;также консультирую дизайнеров.</p>
+              <div class="achievements">
+                <div class="achievements__head"><span class="achievements__icon" aria-hidden="true"></span>Достижения</div>
+                <ul class="achievements__list">
+                  <li>Спроектировал интерактивное приложение для&nbsp;сенсорного стола в&nbsp;школе посёлка Ола (Магаданская область)&nbsp;— мой первый проект под&nbsp;сенсорный формат, заказчик остался доволен результатом</li>
+                  <li>Сделал 20+ презентаций для&nbsp;SouthBridge, Сбербанка и&nbsp;других компаний&nbsp;— в&nbsp;PowerPoint, включая анимацию на&nbsp;Morph, и&nbsp;в&nbsp;Figma со&nbsp;Smart Animate</li>
+                  <li>Разработал полное оформление сообщества ВКонтакте для&nbsp;салона красоты: обложку, аватар и&nbsp;карточки</li>
+                  <li>Создал баннер для&nbsp;ограждения стройплощадки&nbsp;— простой паттерн на&nbsp;основе фирменного стиля заказчика</li>
+                  <li>Провёл 100+ консультаций для&nbsp;дизайнеров разного уровня&nbsp;— от&nbsp;совсем начинающих до&nbsp;middle</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion reveal">
+          <h3 class="accordion__heading">
+            <button class="accordion__top" type="button" aria-expanded="false" aria-controls="exp-4">
+              <img class="accordion__logo" src="assets/img/exp-lazur.png" alt="" width="48" height="48">
+              <span class="accordion__text">
+                <span class="accordion__title">UX/UI Designer, LazurMedia</span>
+                <span class="muted">Февраль 2021 – Март 2024</span>
+              </span>
+              <span class="accordion__chevron" aria-hidden="true"></span>
+            </button>
+          </h3>
+          <div class="accordion__panel" id="exp-4" role="region" hidden>
+            <div class="accordion__body">
+              <p>Занимался созданием лендингов и&nbsp;корпоративных сайтов, исследовал рынок и&nbsp;анализировал конкурентов, разрабатывал интерфейсы и&nbsp;прототипировал&nbsp;их.</p>
+              <p>В&nbsp;процессе работы формировал UI-киты и&nbsp;дизайн-системы, готовил кликабельные прототипы для&nbsp;презентаций и&nbsp;создавал кроссплатформенные B2C-приложения. Кроме того, выполнял дизайн продуктовых презентаций для&nbsp;наглядного представления концепций и&nbsp;решений.</p>
+              <div class="achievements">
+                <div class="achievements__head"><span class="achievements__icon" aria-hidden="true"></span>Достижения</div>
+                <ul class="achievements__list">
+                  <li>Участвовал в&nbsp;запуске продукта в&nbsp;сфере поиска работы с&nbsp;нуля и&nbsp;довёл до&nbsp;20&nbsp;000 пользователей</li>
+                  <li>Продумал ЛК для&nbsp;юр. лиц, в&nbsp;котором зарегистрировалось 500 компаний, разместивших более 2000 вакансий</li>
+                  <li>Спроектировал витрину обучения с&nbsp;каталогом 300 онлайн-курсов</li>
+                  <li>Провёл 2 крупных редизайна, улучшив UX и&nbsp;визуальную целостность продукта</li>
+                  <li>Разработал и&nbsp;внедрил UI-kit / дизайн-систему для&nbsp;масштабирования интерфейсов</li>
+                  <li>Полностью спроектировал пользовательскую часть и&nbsp;админ-панель продукта</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal"><a class="btn btn--dark" href="#" data-resume data-tip="Google Disk" data-tip-pos="bottom">Открыть резюме</a></div>
+    </section>
+
+    <!-- 6. About -->
+    <section class="section" id="about" aria-labelledby="about-title">
+      <h2 class="label reveal">Немного обо мне</h2>
+      <div class="about">
+        <div class="photos reveal" aria-label="Фотографии">
+          <button class="photo" type="button" style="--r:-2deg;--rh:-6deg" data-large="assets/img/about-1-large.jpg" aria-label="Открыть фото: С женой дома"><img src="assets/img/about-1.jpg" alt="С женой дома" loading="lazy" width="480" height="640"></button>
+          <button class="photo" type="button" style="--r:1.5deg;--rh:5deg" data-large="assets/img/about-4-large.jpg" aria-label="Открыть фото: Заснеженная улица ночью"><img src="assets/img/about-4.jpg" alt="Заснеженная улица ночью" loading="lazy" width="480" height="640"></button>
+          <button class="photo" type="button" style="--r:-1deg;--rh:-5deg" data-large="assets/img/about-2-large.jpg" aria-label="Открыть фото: С друзьями в красном свете"><img src="assets/img/about-2.jpg" alt="С друзьями в красном свете" loading="lazy" width="480" height="640"></button>
+          <button class="photo" type="button" style="--r:2deg;--rh:6deg" data-large="assets/img/about-3-large.jpg" aria-label="Открыть фото: Селфи под снегом"><img src="assets/img/about-3.jpg" alt="Селфи под снегом" loading="lazy" width="480" height="640"></button>
+        </div>
+        <div class="about__text reveal">
+          <h2 class="title title--plain" id="about-title">Пять лет в&nbsp;профессии, а&nbsp;<span class="accent-purple nowrap">любовь к&nbsp;дизайну</span>&nbsp;—<br class="br-desktop"> с&nbsp;самого детства</h2>
+          <div class="about__card">
+            <p>Вне работы провожу время с&nbsp;женой и&nbsp;нашей собакой Пряником, люблю путешествия, поездки на&nbsp;машине, встречи с&nbsp;друзьями и&nbsp;иногда просто целые выходные смотреть сериалы.</p>
+            <p>Параллельно несколько лет преподавал UX/UI-дизайн офлайн и&nbsp;онлайн, это научило меня базовым софт-скиллам, выстраивать процессы и&nbsp;работать с&nbsp;людьми.</p>
+            <p>Люблю сложные продуктовые задачи, исследования и&nbsp;моменты, когда удаётся превратить хаос в&nbsp;понятный и&nbsp;удобный интерфейс.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. Contacts -->
+    <section class="section contacts reveal" id="contacts" aria-labelledby="contacts-title">
+      <h2 class="label">Контакты</h2>
+      <div class="contacts__head">
+        <h2 class="title" id="contacts-title">Есть идея, проект<br>или просто хочешь пообщаться?</h2>
+        <p class="contacts__sub">Напиши мне и&nbsp;договоримся на&nbsp;короткий звонок</p>
+      </div>
+      <ul class="socials">
+        <li><a class="social" href="https://t.me/flitay" target="_blank" rel="noopener" aria-label="Telegram" data-tip="Telegram"><img src="assets/img/ic-telegram.svg" alt=""></a></li>
+        <li><a class="social" href="https://ru.pinterest.com/flitays/" target="_blank" rel="noopener" aria-label="Pinterest" data-tip="Pinterest"><img src="assets/img/ic-pinterest.svg" alt=""></a></li>
+        <li><a class="social" href="mailto:moonmywife@gmail.com" aria-label="Почта" data-tip="Почта" data-copy="moonmywife@gmail.com"><img src="assets/img/ic-mail.svg" alt=""></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span data-year>2026</span> Александр Лекомцев</span>
+    <a href="#top" data-to-top>Вернуться ↑</a>
+  </footer>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото" aria-hidden="true">
+    <img class="lightbox__img" alt="">
+    <button class="lightbox__btn lightbox__btn--close" type="button" aria-label="Закрыть"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+    <button class="lightbox__btn lightbox__btn--prev" type="button" aria-label="Предыдущее фото"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg></button>
+    <button class="lightbox__btn lightbox__btn--next" type="button" aria-label="Следующее фото"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg></button>
+  </div>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+  <script src="script.js" defer></script>
+</body>
+</html>

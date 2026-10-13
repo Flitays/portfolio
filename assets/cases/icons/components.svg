@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" height="16" overflow="visible" preserveAspectRatio="none" style="display: block;" viewBox="0 0 16 16" width="16">
+<g id="tabler:components">
+<path d="M2 8L4 10L6 8L4 6L2 8ZM10 8L12 10L14 8L12 6L10 8ZM6 4L8 6L10 4L8 2L6 4ZM6 12L8 14L10 12L8 10L6 12Z" id="Vector" stroke="var(--stroke-0, black)" stroke-linecap="round" stroke-width="1.2"/>
+</g>
+</svg>
