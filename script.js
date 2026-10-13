@@ -195,7 +195,7 @@
   const dockMq = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 768px)');
   if (dock) {
     const items = [...dock.querySelectorAll('.dock__item')];
-    const BASE = 56, MAX = 88, RANGE = 110;
+    const BASE = 48, MAX = 56, RANGE = 90;
     let centers = [];
     let raf = 0;
     const reset = () => {

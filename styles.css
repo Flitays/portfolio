@@ -354,17 +354,18 @@ h3 { font-size: inherit; font-weight: 400; }
 /* ---------- Toolkit (как Dock в macOS) ---------- */
 .toolkit { gap: 0; }
 .dock {
-  --base: 56px;
+  --base: 48px;
   display: flex; align-items: flex-end; justify-content: center;
   gap: 12px;
-  height: calc(var(--base) + 40px);
-  padding-top: 40px; /* увеличенная иконка растёт в этот отступ */
+  height: calc(var(--base) + 32px);
+  padding-top: 32px; /* место под тултип и увеличение */
 }
 .dock__item {
   --size: var(--base);
   position: relative;
   width: var(--size); height: var(--size);
   flex: none;
+  cursor: pointer;
   transition: width .25s cubic-bezier(.25, .1, .25, 1), height .25s cubic-bezier(.25, .1, .25, 1);
 }
 .dock.is-active .dock__item { transition-duration: .08s; }
