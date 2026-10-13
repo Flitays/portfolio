@@ -45,13 +45,30 @@
     });
   });
 
-  // Почта: открываем почтовый клиент и параллельно копируем адрес
+  // Почта: только копируем адрес в буфер обмена, почтовый клиент не открываем
+  const copyText = async (text) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch {
+      // запасной способ для браузеров без Clipboard API (например, без HTTPS)
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.cssText = 'position:fixed;opacity:0;pointer-events:none';
+      document.body.appendChild(ta);
+      ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch { ok = false; }
+      ta.remove();
+      return ok;
+    }
+  };
   document.querySelectorAll('[data-copy]').forEach((link) => {
-    link.addEventListener('click', () => {
-      const value = link.dataset.copy;
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(value).then(() => showToast('Почта скопирована')).catch(() => {});
-      }
+    link.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const ok = await copyText(link.dataset.copy);
+      showToast(ok ? 'Почта скопирована' : link.dataset.copy);
     });
   });
 
