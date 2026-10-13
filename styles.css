@@ -356,7 +356,7 @@ h3 { font-size: inherit; font-weight: 400; }
 .dock {
   --base: 48px;
   display: flex; align-items: flex-end; justify-content: center;
-  gap: 12px;
+  gap: 8px;
   height: calc(var(--base) + 12px);
   padding-top: 12px; /* место под увеличение иконки */
 }
