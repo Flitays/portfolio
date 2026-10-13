@@ -357,8 +357,8 @@ h3 { font-size: inherit; font-weight: 400; }
   --base: 48px;
   display: flex; align-items: flex-end; justify-content: center;
   gap: 12px;
-  height: calc(var(--base) + 32px);
-  padding-top: 32px; /* место под тултип и увеличение */
+  height: calc(var(--base) + 12px);
+  padding-top: 12px; /* место под увеличение иконки */
 }
 .dock__item {
   --size: var(--base);
