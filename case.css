@@ -152,6 +152,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   padding-bottom: 4px;
   border-bottom: 1px solid var(--stroke);
 }
+.point:last-child { border-bottom: 0; padding-bottom: 0; }
 .point__label { opacity: .4; }
 .company-link { display: inline-flex; align-items: center; gap: 8px; transition: opacity .2s var(--ease); }
 .company-link img { width: 16px; height: 16px; opacity: .4; transition: opacity .2s var(--ease); }
