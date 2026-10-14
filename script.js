@@ -240,6 +240,80 @@
     dockMq.addEventListener('change', reset);
   }
 
+  // Мокапы Education: шаг на одну позицию «червяком».
+  // Передний телефон трогается первым, остальные — с задержкой; все приходят одновременно.
+  const strip = document.querySelector('[data-mockups]');
+  if (strip && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'animate' in Element.prototype) {
+    const srcs = strip.dataset.mockups.split('|');
+    const items = [...strip.querySelectorAll('.mockups__item')];
+    const BASE = 43.01, SLOT = 121.51;          // в % от ширины телефона
+    const DUR = 900, STAGGER = 70, HOLD = 1200;  // мс; шаг ≈ 2.1 с, как на референсе
+    const EASE = 'cubic-bezier(.65, 0, .35, 1)';
+    const LAST = items.length - 2;               // самый правый слот (за краем)
+    let next = 1;                                // какой мокап встанет в конец ленты следующим
+    const pos = (s) => `translateX(${BASE + s * SLOT}%)`;
+    const slotOf = (el) => Number(el.style.getPropertyValue('--slot'));
+
+    const step = () => {
+      const ordered = [...items].sort((a, b) => slotOf(a) - slotOf(b));
+      const anims = ordered.map((el, k) => {
+        const s = slotOf(el);
+        const delay = k * STAGGER;
+        return el.animate([{ transform: pos(s) }, { transform: pos(s - 1) }],
+          { duration: DUR - delay, delay, easing: EASE, fill: 'forwards' });
+      });
+      return Promise.all(anims.map((a) => a.finished)).then(() => {
+        ordered.forEach((el, k) => {
+          let s = slotOf(el) - 1;
+          if (s < -1) { // ушёл за левый край — переносим в конец с новым мокапом
+            s = LAST;
+            el.src = srcs[next];
+            next = (next + 1) % srcs.length;
+          }
+          el.style.setProperty('--slot', s);
+          anims[k].cancel();
+        });
+      });
+    };
+
+    let running = false, looping = false;
+    const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+    const loop = async () => {
+      if (looping) return;
+      looping = true;
+      while (running) {
+        await step();
+        if (!running) break;
+        await wait(HOLD);
+      }
+      looping = false;
+    };
+    const start = () => { running = true; loop(); };
+    const stop = () => { running = false; };
+
+    const touchMq = window.matchMedia('(hover: none), (max-width: 767px)');
+    const card = strip.closest('.project') || strip;
+    card.addEventListener('mouseenter', () => { if (!touchMq.matches) start(); });
+    card.addEventListener('mouseleave', () => { if (!touchMq.matches) stop(); });
+    card.addEventListener('focus', () => { if (!touchMq.matches) start(); });
+    card.addEventListener('blur', () => { if (!touchMq.matches) stop(); });
+    // На телефоне — постоянно, но только пока карточка на экране
+    let inView = false;
+    const setView = (v) => {
+      inView = v;
+      if (touchMq.matches) (inView ? start : stop)();
+    };
+    const checkView = () => {
+      const r = strip.getBoundingClientRect();
+      const v = r.bottom > window.innerHeight * 0.1 && r.top < window.innerHeight * 0.9;
+      if (v !== inView) setView(v);
+    };
+    new IntersectionObserver(([e]) => setView(e.isIntersecting), { threshold: 0.2 }).observe(strip);
+    window.addEventListener('scroll', checkView, { passive: true });
+    checkView();
+    touchMq.addEventListener('change', () => { if (touchMq.matches && inView) start(); else stop(); });
+  }
+
   // Год в футере
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
