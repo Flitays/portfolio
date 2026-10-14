@@ -134,6 +134,36 @@
   window.addEventListener('resize', () => { const i = currentIndex; currentIndex = -2; movePill(i); });
   setActive();
 
+  // Якоря на странице (навигация в шапке) — плавно, но только по клику.
+  // Глобальный scroll-behavior: smooth не используем: из-за него браузер «докручивал»
+  // страницу при возврате с кейса.
+  const reduceMotionMain = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('a[href^="#"]:not([data-to-top])').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href').slice(1);
+      const target = id && document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: reduceMotionMain ? 'auto' : 'smooth', block: 'start' });
+      history.replaceState(null, '', `#${id}`);
+    });
+  });
+
+  // Запоминаем, где был посетитель, чтобы кнопка «Вернуться» на кейсах вернула ровно сюда
+  const SCROLL_KEY = 'main-scroll';
+  window.addEventListener('pagehide', () => {
+    try { sessionStorage.setItem(SCROLL_KEY, String(window.scrollY)); } catch {}
+  });
+  try {
+    if (sessionStorage.getItem('restore-main') === '1') {
+      sessionStorage.removeItem('restore-main');
+      const y = Number(sessionStorage.getItem(SCROLL_KEY) || 0);
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+      window.scrollTo(0, y);
+      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
+    }
+  } catch {}
+
   // Плавный возврат наверх
   document.querySelectorAll('[data-to-top]').forEach((link) => {
     link.addEventListener('click', (e) => {

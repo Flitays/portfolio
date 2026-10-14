@@ -75,6 +75,29 @@
     el.addEventListener('focus', () => nudgeTip(el));
   });
 
+  // «← Вернуться»: если пришли с главной — шаг назад по истории, браузер сам вернёт
+  // ровно на то место, где была страница, без анимации. Иначе — переход на главную,
+  // а главная восстановит сохранённую позицию.
+  document.querySelectorAll('[data-back]').forEach((link) => {
+    link.addEventListener('click', (e) => {
+      // назад по истории — только если предыдущая страница и есть та, куда ведёт кнопка
+      let fromTarget = false;
+      try {
+        const ref = new URL(document.referrer);
+        const target = new URL(link.href);
+        const norm = (p) => p.replace(/index\.html$/, '');
+        fromTarget = ref.origin === location.origin && norm(ref.pathname) === norm(target.pathname);
+      } catch {}
+      e.preventDefault();
+      if (fromTarget && history.length > 1) {
+        history.back();
+      } else {
+        try { sessionStorage.setItem('restore-main', '1'); } catch {}
+        location.href = link.href;
+      }
+    });
+  });
+
   // Миниатюры и ссылки по странице — плавный скролл
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
