@@ -219,7 +219,33 @@ h3 { font-size: inherit; font-weight: 400; }
   width: 100%; height: 100%; object-fit: cover;
   transition: transform .6s var(--ease);
 }
-.project:hover .project__preview img { transform: scale(1.03); }
+.project:hover .project__preview:not(.marquee) img { transform: scale(1.03); }
+
+/* Бегущая лента мокапов (Education): на десктопе едет при наведении, на тач-экранах — всегда */
+.marquee { position: relative; display: flex; align-items: center; min-width: 0; }
+.marquee__track {
+  display: flex; align-items: center; width: max-content; height: 100%;
+  animation: marquee 24s linear infinite;
+  animation-play-state: paused;
+}
+.marquee__group { display: flex; align-items: center; flex: none; height: 100%; }
+.marquee__group img {
+  width: auto; height: 80%;
+  margin-right: 16px;
+  object-fit: contain;
+  border-radius: 0;
+}
+.project:hover .marquee__track, .project:focus-visible .marquee__track { animation-play-state: running; }
+@media (hover: none), (max-width: 767px) {
+  .marquee__track { animation-play-state: running; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee__track { animation: none; }
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
 .project--link { transition: border-color .2s var(--ease); }
 .project--link:hover { border-color: #DADADA; }
 .project__head {
@@ -563,7 +589,7 @@ h3 { font-size: inherit; font-weight: 400; }
   .header__inner { grid-template-columns: 1fr auto; }
 
   .page { gap: 40px; padding-top: calc(var(--header-h) + 1px + 32px); }
-  .projects { grid-template-columns: 1fr; }
+  .projects { grid-template-columns: minmax(0, 1fr); }
   .pres { width: calc((100% - 4px) / 2); }
   .title { font-size: 22px; line-height: 28px; letter-spacing: -0.6px; }
   .about__card { padding: 24px; }
