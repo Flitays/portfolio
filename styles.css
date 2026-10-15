@@ -354,6 +354,46 @@ h3 { font-size: inherit; font-weight: 400; }
 .deck.is-open .deck__slide { opacity: 1; filter: blur(0); transform: none; }
 .deck__slide.is-swapping { opacity: 0; filter: blur(8px); transition: opacity .15s, filter .15s; }
 .deck__stage .deck__slide { flex: 0 1 auto; }
+/* Модалка с прототипом Figma (Smart Animate) */
+.proto {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 16px 24px 24px;
+  background: rgba(20, 20, 20, .88);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: #fff;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s var(--ease), visibility 0s linear .3s;
+}
+.proto.is-open { opacity: 1; visibility: visible; transition: opacity .3s var(--ease); }
+.proto__stage { flex: 1; min-height: 0; display: grid; place-items: center; }
+.proto__frame {
+  position: relative;
+  width: min(100%, 1280px, calc((100dvh - 120px) * 16 / 9));
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #111;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .45);
+  opacity: 0; filter: blur(12px); transform: scale(.96);
+  transition: opacity .3s var(--ease), filter .3s var(--ease), transform .4s cubic-bezier(.34, 1.2, .64, 1);
+}
+.proto.is-open .proto__frame { opacity: 1; filter: blur(0); transform: none; }
+.proto__frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.proto__loader {
+  position: absolute; left: 50%; top: 50%;
+  width: 28px; height: 28px; margin: -14px 0 0 -14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, .2); border-top-color: #fff;
+  animation: proto-spin .8s linear infinite;
+}
+@keyframes proto-spin { to { transform: rotate(360deg); } }
+@media (max-width: 767px) {
+  .proto { padding: 12px 12px 16px; }
+  .proto .deck__counter { display: none; }
+  .proto__frame { border-radius: 8px; }
+}
+
 /* Полоса миниатюр: видно до 7 штук, активная — в фокусе */
 .deck__thumbs {
   --tw: 96px; --tg: 8px;

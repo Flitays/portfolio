@@ -346,7 +346,7 @@
 
   // Презентации: модалка со слайдами и полосой миниатюр
   const deck = document.querySelector('.deck');
-  const deckCards = [...document.querySelectorAll('.pres--deck')];
+  const deckCards = [...document.querySelectorAll('.pres--deck[data-deck]')];
   if (deck && deckCards.length) {
     const slideEl = deck.querySelector('.deck__slide');
     const strip = deck.querySelector('.deck__strip');
@@ -454,6 +454,43 @@
       tx = null;
     });
     window.addEventListener('resize', () => { if (deck.classList.contains('is-open')) layoutThumbs(); });
+  }
+
+  // Презентация-прототип из Figma (Smart Animate): iframe грузится только по клику
+  const proto = document.querySelector('.proto');
+  if (proto) {
+    const frame = proto.querySelector('.proto__frame');
+    const closeP = proto.querySelector('.proto__close');
+    let lastFocusP = null;
+    const openP = (card) => {
+      lastFocusP = document.activeElement;
+      proto.querySelector('.proto__title, .deck__title').textContent = card.dataset.title;
+      const iframe = document.createElement('iframe');
+      iframe.src = card.dataset.figma;
+      iframe.title = `Презентация «${card.dataset.title}» в Figma`;
+      iframe.allowFullscreen = true;
+      iframe.addEventListener('load', () => frame.querySelector('.proto__loader')?.remove());
+      frame.appendChild(iframe);
+      proto.setAttribute('aria-hidden', 'false');
+      proto.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      closeP.focus({ preventScroll: true });
+    };
+    const closeProto = () => {
+      proto.classList.remove('is-open');
+      proto.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      // убираем iframe после анимации закрытия, чтобы не грузил процессор
+      setTimeout(() => {
+        frame.querySelector('iframe')?.remove();
+        if (!frame.querySelector('.proto__loader')) frame.insertAdjacentHTML('afterbegin', '<span class="proto__loader" aria-hidden="true"></span>');
+      }, 300);
+      if (lastFocusP) lastFocusP.focus({ preventScroll: true });
+    };
+    document.querySelectorAll('.pres--deck[data-figma]').forEach((card) => card.addEventListener('click', () => openP(card)));
+    closeP.addEventListener('click', closeProto);
+    proto.querySelector('.proto__stage').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeProto(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && proto.classList.contains('is-open')) closeProto(); });
   }
 
   // Год в футере

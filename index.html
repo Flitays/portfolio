@@ -137,10 +137,10 @@
           <div class="pres__preview"><img class="r4" src="assets/img/pres-kadry.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
           <div class="pres__meta"><span class="pres__name">Подготовка кадров</span><span class="muted">2024</span></div>
         </button>
-        <article class="card pres reveal">
-          <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-atomic.png" alt="" loading="lazy"></div>
-          <div class="pres__meta"><h3>Личное выступление</h3><span class="muted">2023</span></div>
-        </article>
+        <button class="card pres pres--deck reveal" type="button" data-figma="https://embed.figma.com/proto/8Ff0fvycKSyd0t0fIayn0t/Potfolio-Lekomtsev?node-id=24-3390&amp;starting-point-node-id=24%3A3390&amp;page-id=1%3A2&amp;scaling=contain&amp;content-scaling=fixed&amp;hide-ui=1&amp;embed-host=share" data-title="Личное выступление" aria-label="Смотреть презентацию: Личное выступление">
+          <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-atomic.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><span class="pres__name">Личное выступление</span><span class="muted">2023</span></div>
+        </button>
         <button class="card pres pres--deck reveal" type="button" data-deck="college" data-count="9" data-title="План развития колледжа" aria-label="Смотреть слайды: План развития колледжа">
           <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-college.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
           <div class="pres__meta"><span class="pres__name">План развития колледжа</span><span class="muted">2023</span></div>
@@ -340,6 +340,15 @@
       <button class="deck__btn deck__nav deck__nav--next" type="button" aria-label="Следующий слайд"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg></button>
     </div>
     <div class="deck__thumbs"><div class="deck__strip" role="tablist" aria-label="Слайды"></div></div>
+  </div>
+
+  <div class="proto" role="dialog" aria-modal="true" aria-labelledby="proto-title" aria-hidden="true">
+    <div class="deck__top">
+      <p class="deck__title" id="proto-title"></p>
+      <span class="deck__counter">Листайте кликом или стрелками</span>
+      <button class="deck__btn proto__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+    </div>
+    <div class="proto__stage"><div class="proto__frame"><span class="proto__loader" aria-hidden="true"></span></div></div>
   </div>
 
   <div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото" aria-hidden="true">
