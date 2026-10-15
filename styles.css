@@ -439,14 +439,11 @@ h3 { font-size: inherit; font-weight: 400; }
 }
 .accordion__logo {
   width: 48px; height: 48px; flex: none;
-  border-radius: 12px;
-}
-.accordion__logo--freelance {
-  display: grid; place-items: center;
+  object-fit: cover;
   border-radius: 8px;
-  border: 1px solid #fff;
-  background: linear-gradient(180deg, #FFFFFF 0%, #EEEEFB 100%);
-  box-shadow: 0 4px 4px rgba(0, 0, 0, .08);
+  border: 1px solid hsl(0deg 0% 100%);
+  background: linear-gradient(0deg, #EBE9F5 0%, #FCFCFC 100%);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.08);
 }
 .accordion__text { flex: 1; min-width: 0; display: flex; flex-direction: column; }
 .accordion__title { font-size: 15px; line-height: 22px; letter-spacing: -0.15px; }
