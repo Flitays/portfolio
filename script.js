@@ -344,6 +344,118 @@
     touchMq.addEventListener('change', () => { if (touchMq.matches && inView) start(); else stop(); });
   }
 
+  // Презентации: модалка со слайдами и полосой миниатюр
+  const deck = document.querySelector('.deck');
+  const deckCards = [...document.querySelectorAll('.pres--deck')];
+  if (deck && deckCards.length) {
+    const slideEl = deck.querySelector('.deck__slide');
+    const strip = deck.querySelector('.deck__strip');
+    const thumbsBox = deck.querySelector('.deck__thumbs');
+    const counter = deck.querySelector('.deck__counter');
+    const titleEl = deck.querySelector('.deck__title');
+    const prevBtn = deck.querySelector('.deck__nav--prev');
+    const nextBtn = deck.querySelector('.deck__nav--next');
+    const closeBtn = deck.querySelector('.deck__close');
+    let slides = [], index = 0, lastFocus = null, swapTimer = 0;
+
+    const pad = (n) => String(n).padStart(2, '0');
+    const thumbMetrics = () => {
+      const cs = getComputedStyle(thumbsBox);
+      return { tw: parseFloat(cs.getPropertyValue('--tw')), tg: parseFloat(cs.getPropertyValue('--tg')) };
+    };
+    // сколько миниатюр видно: до 7 на десктопе, на телефоне — сколько влезает
+    const visibleCount = () => {
+      const { tw, tg } = thumbMetrics();
+      const fit = Math.floor((deck.clientWidth - 32 + tg) / (tw + tg));
+      return Math.max(1, Math.min(slides.length, 7, fit));
+    };
+    const layoutThumbs = () => {
+      const { tw, tg } = thumbMetrics();
+      const v = visibleCount();
+      thumbsBox.style.width = `${v * tw + (v - 1) * tg + 8}px`;
+      // активная — по центру окна, у краёв окно упирается в начало/конец списка
+      const start = Math.min(Math.max(index - Math.floor(v / 2), 0), slides.length - v);
+      strip.style.transform = `translateX(${-start * (tw + tg)}px)`;
+      [...strip.children].forEach((t, i) => {
+        t.classList.toggle('is-active', i === index);
+        t.setAttribute('aria-selected', String(i === index));
+        t.tabIndex = i >= start && i < start + v ? 0 : -1;
+      });
+    };
+    const show = (i, animate = true) => {
+      index = Math.min(Math.max(i, 0), slides.length - 1);
+      counter.textContent = `${index + 1} / ${slides.length}`;
+      prevBtn.disabled = index === 0;
+      nextBtn.disabled = index === slides.length - 1;
+      layoutThumbs();
+      const src = slides[index];
+      clearTimeout(swapTimer);
+      if (!animate) { slideEl.src = src; return; }
+      slideEl.classList.add('is-swapping');
+      swapTimer = setTimeout(() => {
+        slideEl.src = src;
+        const done = () => slideEl.classList.remove('is-swapping');
+        if (slideEl.complete) done(); else slideEl.onload = done;
+      }, 150);
+      // подгружаем соседний слайд заранее
+      if (slides[index + 1]) { const im = new Image(); im.src = slides[index + 1]; }
+    };
+    const open = (card) => {
+      const slug = card.dataset.deck;
+      const count = Number(card.dataset.count);
+      slides = Array.from({ length: count }, (_, k) => `assets/slides/${slug}/${pad(k + 1)}.jpg`);
+      titleEl.textContent = card.dataset.title;
+      slideEl.alt = `Слайд презентации «${card.dataset.title}»`;
+      strip.innerHTML = '';
+      slides.forEach((src, k) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'deck__thumb';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', `Слайд ${k + 1}`);
+        b.innerHTML = `<img src="${src.replace('.jpg', '-t.jpg')}" alt="" loading="lazy">`;
+        b.addEventListener('click', () => show(k));
+        strip.appendChild(b);
+      });
+      lastFocus = document.activeElement;
+      strip.style.transition = 'none';
+      show(0, false);
+      requestAnimationFrame(() => { strip.style.transition = ''; });
+      deck.setAttribute('aria-hidden', 'false');
+      deck.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      closeBtn.focus({ preventScroll: true });
+    };
+    const close = () => {
+      deck.classList.remove('is-open');
+      deck.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    };
+    deckCards.forEach((card) => card.addEventListener('click', () => open(card)));
+    prevBtn.addEventListener('click', () => show(index - 1));
+    nextBtn.addEventListener('click', () => show(index + 1));
+    closeBtn.addEventListener('click', close);
+    // клик по пустому месту вокруг слайда — закрыть
+    deck.querySelector('.deck__stage').addEventListener('click', (e) => { if (e.target === e.currentTarget) close(); });
+    document.addEventListener('keydown', (e) => {
+      if (!deck.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') show(index - 1);
+      if (e.key === 'ArrowRight') show(index + 1);
+    });
+    // свайп на телефоне
+    let tx = null;
+    slideEl.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
+    slideEl.addEventListener('touchend', (e) => {
+      if (tx === null) return;
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+      tx = null;
+    });
+    window.addEventListener('resize', () => { if (deck.classList.contains('is-open')) layoutThumbs(); });
+  }
+
   // Год в футере
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();

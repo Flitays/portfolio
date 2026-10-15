@@ -169,39 +169,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .picture--flat { background: none; }
 .rounded { border-radius: 16px; }
 
-/* Превью презентации: слайд на сером фоне, кнопка Play появляется при наведении */
-.pres-preview {
-  position: relative;
-  border-radius: 24px;
-  background: var(--muted-bg);
-  padding: 48px;
-  display: grid; place-items: center;
-  overflow: hidden;
-}
-.pres-preview img {
-  width: 100%; height: auto;
-  border-radius: 8px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .1);
-  transition: transform .45s var(--ease), box-shadow .45s var(--ease);
-}
-.pres-preview:hover img { transform: scale(1.02); box-shadow: 0 14px 32px rgba(0, 0, 0, .14); }
-.pres-preview__play {
-  position: absolute; left: 50%; top: 50%;
-  width: 56px; height: 56px; margin: -28px 0 0 -28px;
-  border-radius: 50%;
-  background: var(--surface) url("assets/img/ic-play.svg") 56% 50% / 22px no-repeat;
-  border: 1px solid #E6E6E9;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .14);
-  opacity: 0;
-  filter: blur(6px);
-  transform: scale(0);
-  transition: opacity .3s var(--ease), filter .3s var(--ease), transform .35s cubic-bezier(.34, 1.4, .64, 1);
-  pointer-events: none;
-}
-.pres-preview:hover .pres-preview__play { opacity: 1; filter: blur(0); transform: scale(1); }
-@media (hover: none) { .pres-preview__play { opacity: 1; filter: none; transform: scale(1); } }
-@media (max-width: 767px) { .pres-preview { padding: 24px; border-radius: 20px; } }
-
 .divider {
   height: 1px;
   background: linear-gradient(90deg, rgba(213, 213, 213, 0) 0%, #D5D5D5 50%, rgba(213, 213, 213, 0) 100%);

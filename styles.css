@@ -288,8 +288,102 @@ h3 { font-size: inherit; font-weight: 400; }
 .pres__preview img.r4 { border-radius: 4px; }
 .pres__preview img.strong { box-shadow: 0 4px 8px rgba(0, 0, 0, .12); }
 .pres:hover .pres__preview img { transform: scale(1.06) translateY(-2px); box-shadow: 0 10px 20px rgba(0, 0, 0, .12); }
-.pres--link { transition: border-color .2s var(--ease); }
-.pres--link:hover { border-color: #DADADA; }
+.pres--deck {
+  font: inherit; color: inherit; text-align: left;
+  cursor: pointer;
+  transition: border-color .2s var(--ease);
+}
+.pres--deck:hover { border-color: #DADADA; }
+.pres__preview { position: relative; }
+.pres__play {
+  position: absolute; left: 50%; top: 50%;
+  width: 36px; height: 36px; margin: -18px 0 0 -18px;
+  border-radius: 50%;
+  background: var(--surface) url("assets/img/ic-play.svg") 55% 50% / 16px no-repeat;
+  border: 1px solid #E6E6E9;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .12);
+  opacity: 0;
+  filter: blur(6px);
+  transform: scale(0);
+  transition: opacity .3s var(--ease), filter .3s var(--ease), transform .35s cubic-bezier(.34, 1.4, .64, 1);
+  pointer-events: none;
+}
+.pres--deck:hover .pres__play, .pres--deck:focus-visible .pres__play { opacity: 1; filter: blur(0); transform: scale(1); }
+
+/* ---------- Модалка со слайдами ---------- */
+.deck {
+  position: fixed; inset: 0; z-index: 400;
+  display: flex; flex-direction: column;
+  padding: 16px 24px 24px;
+  gap: 16px;
+  background: rgba(20, 20, 20, .88);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  color: #fff;
+  opacity: 0; visibility: hidden;
+  transition: opacity .3s var(--ease), visibility 0s linear .3s;
+}
+.deck.is-open { opacity: 1; visibility: visible; transition: opacity .3s var(--ease); }
+.deck__top { display: flex; align-items: center; gap: 12px; min-height: 44px; }
+.deck__title { flex: 1; min-width: 0; font-size: 15px; line-height: 20px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.deck__counter { font-size: 15px; line-height: 20px; color: rgba(255, 255, 255, .6); font-variant-numeric: tabular-nums; }
+.deck__btn {
+  width: 44px; height: 44px; flex: none;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  transition: background-color .2s var(--ease), transform .2s var(--ease), opacity .2s var(--ease);
+}
+.deck__btn:hover { background: rgba(255, 255, 255, .24); }
+.deck__btn:active { transform: scale(.94); }
+.deck__btn:disabled { opacity: .3; pointer-events: none; }
+.deck__btn svg { width: 20px; height: 20px; }
+.deck__stage {
+  flex: 1; min-height: 0;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+}
+.deck__slide {
+  max-width: min(100%, 1280px); max-height: 100%;
+  width: auto; height: auto; min-width: 0;
+  border-radius: 12px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, .45);
+  opacity: 0; filter: blur(12px); transform: scale(.96);
+  transition: opacity .3s var(--ease), filter .3s var(--ease), transform .4s cubic-bezier(.34, 1.2, .64, 1);
+  user-select: none; -webkit-user-drag: none;
+}
+.deck.is-open .deck__slide { opacity: 1; filter: blur(0); transform: none; }
+.deck__slide.is-swapping { opacity: 0; filter: blur(8px); transition: opacity .15s, filter .15s; }
+.deck__stage .deck__slide { flex: 0 1 auto; }
+/* Полоса миниатюр: видно до 7 штук, активная — в фокусе */
+.deck__thumbs {
+  --tw: 96px; --tg: 8px;
+  align-self: center;
+  max-width: 100%;
+  overflow: hidden;
+  padding: 4px;
+}
+.deck__strip {
+  display: flex; gap: var(--tg);
+  transition: transform .45s cubic-bezier(.25, .1, .25, 1);
+}
+.deck__thumb {
+  width: var(--tw); flex: none;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  opacity: .45;
+  outline: 2px solid transparent; outline-offset: 2px;
+  transition: opacity .25s var(--ease), outline-color .25s var(--ease), transform .2s var(--ease);
+}
+.deck__thumb img { width: 100%; height: 100%; object-fit: cover; }
+.deck__thumb:hover { opacity: .8; }
+.deck__thumb.is-active { opacity: 1; outline-color: #fff; }
+@media (max-width: 767px) {
+  .deck { padding: 12px 12px 16px; }
+  .deck__thumbs { --tw: 64px; --tg: 6px; }
+  .deck__nav { display: none; }
+  .deck__slide { border-radius: 8px; }
+}
 .pres__meta { display: flex; flex-direction: column; padding: 8px; }
 
 /* ---------- Experience / Accordion ---------- */

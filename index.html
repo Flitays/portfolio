@@ -121,30 +121,30 @@
     <section class="section" id="presentations" aria-labelledby="pres-title">
       <h2 class="label reveal" id="pres-title">Презентации</h2>
       <div class="presentations">
-        <a class="card pres pres--link reveal" href="presentations/ikorka/">
+        <article class="card pres reveal">
           <div class="pres__preview"><img src="assets/img/pres-ikorka.png" alt="" loading="lazy"></div>
           <div class="pres__meta"><h3>Икорка - стартап</h3><span class="muted">2026</span></div>
-        </a>
-        <a class="card pres pres--link reveal" href="presentations/southbridge/">
-          <div class="pres__preview"><img src="assets/img/pres-southbridge.png" alt="" loading="lazy"></div>
-          <div class="pres__meta"><h3>SouthBridge</h3><span class="muted">2025</span></div>
-        </a>
-        <a class="card pres pres--link reveal" href="presentations/cybersecurity/">
-          <div class="pres__preview"><img src="assets/img/pres-cyber.png" alt="" loading="lazy"></div>
-          <div class="pres__meta"><h3>Кибербезопасность</h3><span class="muted">2025</span></div>
-        </a>
-        <a class="card pres pres--link reveal" href="presentations/kadry/">
-          <div class="pres__preview"><img class="r4" src="assets/img/pres-kadry.png" alt="" loading="lazy"></div>
-          <div class="pres__meta"><h3>Подготовка кадров</h3><span class="muted">2024</span></div>
-        </a>
-        <a class="card pres pres--link reveal" href="presentations/atomic-design/">
+        </article>
+        <button class="card pres pres--deck reveal" type="button" data-deck="southbridge" data-count="13" data-title="SouthBridge" aria-label="Смотреть слайды: SouthBridge">
+          <div class="pres__preview"><img src="assets/img/pres-southbridge.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><span class="pres__name">SouthBridge</span><span class="muted">2025</span></div>
+        </button>
+        <button class="card pres pres--deck reveal" type="button" data-deck="cybersecurity" data-count="7" data-title="Кибербезопасность" aria-label="Смотреть слайды: Кибербезопасность">
+          <div class="pres__preview"><img src="assets/img/pres-cyber.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><span class="pres__name">Кибербезопасность</span><span class="muted">2025</span></div>
+        </button>
+        <button class="card pres pres--deck reveal" type="button" data-deck="kadry" data-count="8" data-title="Подготовка кадров" aria-label="Смотреть слайды: Подготовка кадров">
+          <div class="pres__preview"><img class="r4" src="assets/img/pres-kadry.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><span class="pres__name">Подготовка кадров</span><span class="muted">2024</span></div>
+        </button>
+        <article class="card pres reveal">
           <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-atomic.png" alt="" loading="lazy"></div>
           <div class="pres__meta"><h3>Личное выступление</h3><span class="muted">2023</span></div>
-        </a>
-        <a class="card pres pres--link reveal" href="presentations/college/">
-          <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-college.png" alt="" loading="lazy"></div>
-          <div class="pres__meta"><h3>План развития колледжа</h3><span class="muted">2023</span></div>
-        </a>
+        </article>
+        <button class="card pres pres--deck reveal" type="button" data-deck="college" data-count="9" data-title="План развития колледжа" aria-label="Смотреть слайды: План развития колледжа">
+          <div class="pres__preview"><img class="r4 strong" src="assets/img/pres-college.png" alt="" loading="lazy"><span class="pres__play" aria-hidden="true"></span></div>
+          <div class="pres__meta"><span class="pres__name">План развития колледжа</span><span class="muted">2023</span></div>
+        </button>
       </div>
     </section>
 
@@ -327,6 +327,20 @@
     <span>© <span data-year>2026</span> Александр Лекомцев</span>
     <a href="#top" data-to-top>Вернуться ↑</a>
   </footer>
+
+  <div class="deck" role="dialog" aria-modal="true" aria-labelledby="deck-title" aria-hidden="true">
+    <div class="deck__top">
+      <p class="deck__title" id="deck-title"></p>
+      <span class="deck__counter" aria-live="polite"></span>
+      <button class="deck__btn deck__close" type="button" aria-label="Закрыть"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+    </div>
+    <div class="deck__stage">
+      <button class="deck__btn deck__nav deck__nav--prev" type="button" aria-label="Предыдущий слайд"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4l-6 6 6 6"/></svg></button>
+      <img class="deck__slide" alt="">
+      <button class="deck__btn deck__nav deck__nav--next" type="button" aria-label="Следующий слайд"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 4l6 6-6 6"/></svg></button>
+    </div>
+    <div class="deck__thumbs"><div class="deck__strip" role="tablist" aria-label="Слайды"></div></div>
+  </div>
 
   <div class="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр фото" aria-hidden="true">
     <img class="lightbox__img" alt="">
