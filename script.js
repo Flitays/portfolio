@@ -428,15 +428,18 @@
       if (e.key === 'ArrowLeft') show(index - 1);
       if (e.key === 'ArrowRight') show(index + 1);
     });
-    // свайп на телефоне
-    let tx = null;
-    slideEl.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
-    slideEl.addEventListener('touchend', (e) => {
+    // Телефон: тап по левой/правой половине слайда и свайп
+    const stage = deck.querySelector('.deck__stage');
+    let tx = null, swiped = false;
+    stage.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; swiped = false; }, { passive: true });
+    stage.addEventListener('touchend', (e) => {
       if (tx === null) return;
       const dx = e.changedTouches[0].clientX - tx;
-      if (Math.abs(dx) > 40) show(index + (dx < 0 ? 1 : -1));
+      if (Math.abs(dx) > 40) { swiped = true; show(index + (dx < 0 ? 1 : -1)); }
       tx = null;
     });
+    deck.querySelector('.deck__zone--prev').addEventListener('click', () => { if (!swiped) show(index - 1); swiped = false; });
+    deck.querySelector('.deck__zone--next').addEventListener('click', () => { if (!swiped) show(index + 1); swiped = false; });
     window.addEventListener('resize', () => { if (deck.classList.contains('is-open')) layoutThumbs(); });
   }
 

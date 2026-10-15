@@ -354,6 +354,19 @@ h3 { font-size: inherit; font-weight: 400; }
 .deck.is-open .deck__slide { opacity: 1; filter: blur(0); transform: none; }
 .deck__slide.is-swapping { opacity: 0; filter: blur(8px); transition: opacity .15s, filter .15s; }
 .deck__stage .deck__slide { flex: 0 1 auto; }
+.deck__stage { position: relative; }
+/* Невидимые зоны для тапа на телефоне: левая половина — назад, правая — вперёд */
+.deck__zone { display: none; }
+@media (max-width: 767px), (hover: none) {
+  .deck__zone {
+    display: block;
+    position: absolute; top: 0; bottom: 0; width: 50%;
+    background: transparent;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .deck__zone--prev { left: 0; }
+  .deck__zone--next { right: 0; }
+}
 /* Модалка с прототипом Figma (Smart Animate) */
 .proto {
   position: fixed; inset: 0; z-index: 400;
