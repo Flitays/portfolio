@@ -72,20 +72,18 @@
     });
   });
 
-  // Появление блоков при скролле
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
-    reveals.forEach((el) => io.observe(el));
-  } else {
-    reveals.forEach((el) => el.classList.add('is-visible'));
+  // Лоадер: показываем, пока страница грузится, затем сразу всю страницу
+  const loader = document.querySelector('.page-loader');
+  if (loader) {
+    const hideLoader = () => {
+      loader.classList.add('is-done');
+      setTimeout(() => loader.remove(), 400);
+    };
+    if (document.readyState === 'complete') hideLoader();
+    else {
+      window.addEventListener('load', hideLoader, { once: true });
+      setTimeout(hideLoader, 4000); // на медленном интернете не держим дольше 4 с
+    }
   }
 
   // Подложка активного раздела в шапке: «перескакивает» между пунктами
@@ -160,7 +158,6 @@
       const y = Number(sessionStorage.getItem(SCROLL_KEY) || 0);
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       window.scrollTo(0, y);
-      document.querySelectorAll('.reveal').forEach((el) => el.classList.add('is-visible'));
     }
   } catch {}
 

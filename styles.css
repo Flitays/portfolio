@@ -690,11 +690,24 @@ h3 { font-size: inherit; font-weight: 400; }
 }
 .toast.is-visible { opacity: 1; filter: blur(0); transform: translate(-50%, 0) scale(1); }
 
-/* ---------- Reveal on scroll ---------- */
-.js .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.js .reveal.is-visible { opacity: 1; transform: none; }
+/* ---------- Лоадер страницы (вместо появления блоков при скролле) ---------- */
+.page-loader { display: none; }
+.js .page-loader {
+  position: fixed; inset: 0; z-index: 1000;
+  display: grid; place-items: center;
+  background: var(--bg);
+  transition: opacity .35s var(--ease), visibility 0s linear .35s;
+}
+.js .page-loader.is-done { opacity: 0; visibility: hidden; }
+.page-loader__spinner {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  border: 2px solid rgba(31, 31, 31, .12);
+  border-top-color: #1F1F1F;
+  animation: page-spin .8s linear infinite;
+}
+@keyframes page-spin { to { transform: rotate(360deg); } }
 @media (prefers-reduced-motion: reduce) {
-  .js .reveal { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { transition-duration: 0s !important; }
 }
 

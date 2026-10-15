@@ -110,20 +110,22 @@
     });
   });
 
-  // Появление блоков при скролле
-  const reveals = document.querySelectorAll('.reveal');
-  if ('IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.06 });
-    reveals.forEach((el) => io.observe(el));
+  // Лоадер: показываем, пока страница грузится, затем сразу всю страницу
+  const loader = document.querySelector('.page-loader');
+  if (loader) {
+    const hideLoader = () => {
+      loader.classList.add('is-done');
+      setTimeout(() => loader.remove(), 400);
+    };
+    if (document.readyState === 'complete') hideLoader();
+    else {
+      window.addEventListener('load', hideLoader, { once: true });
+      setTimeout(hideLoader, 4000); // на медленном интернете не держим дольше 4 с
+    }
+  }
 
-    // Видео играют только когда видны на экране
+  // Видео играют только когда видны на экране
+  if ('IntersectionObserver' in window) {
     const vio = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         const v = entry.target;
@@ -131,7 +133,5 @@
       });
     }, { threshold: 0.25 });
     document.querySelectorAll('video[data-autoplay]').forEach((v) => vio.observe(v));
-  } else {
-    reveals.forEach((el) => el.classList.add('is-visible'));
   }
 })();
