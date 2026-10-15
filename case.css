@@ -372,24 +372,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case-nav a:active { transform: scale(.94); }
 .case-nav img, .case-nav svg { width: 20px; height: 20px; }
 
-/* ---------- Лоадер страницы (вместо появления блоков при скролле) ---------- */
-.page-loader { display: none; }
-.js .page-loader {
-  position: fixed; inset: 0; z-index: 1000;
-  display: grid; place-items: center;
-  background: var(--bg);
-  transition: opacity .35s var(--ease), visibility 0s linear .35s;
-}
-.js .page-loader.is-done { opacity: 0; visibility: hidden; }
-.page-loader__spinner {
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  border: 2px solid rgba(31, 31, 31, .12);
-  border-top-color: #1F1F1F;
-  animation: page-spin .8s linear infinite;
-}
-@keyframes page-spin { to { transform: rotate(360deg); } }
+/* ---------- Появление страницы: лёгкий фейд всей страницы разом (чистый CSS, без JS) ---------- */
+body { animation: page-in .2s ease both; }
+@keyframes page-in { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
   *, *::before, *::after { transition-duration: 0s !important; }
 }
 

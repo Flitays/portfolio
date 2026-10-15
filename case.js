@@ -110,19 +110,6 @@
     });
   });
 
-  // Лоадер: показываем, пока страница грузится, затем сразу всю страницу
-  const loader = document.querySelector('.page-loader');
-  if (loader) {
-    const hideLoader = () => {
-      loader.classList.add('is-done');
-      setTimeout(() => loader.remove(), 400);
-    };
-    if (document.readyState === 'complete') hideLoader();
-    else {
-      window.addEventListener('load', hideLoader, { once: true });
-      setTimeout(hideLoader, 4000); // на медленном интернете не держим дольше 4 с
-    }
-  }
 
   // Видео играют только когда видны на экране
   if ('IntersectionObserver' in window) {
