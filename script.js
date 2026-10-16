@@ -344,11 +344,12 @@
     touchMq.addEventListener('change', () => { if (touchMq.matches && inView) start(); else stop(); });
   }
 
-  // Презентации: модалка со слайдами и полосой миниатюр
+  // Презентации: модалка со слайдами — лента листается жестом (как галерея), есть миниатюры
   const deck = document.querySelector('.deck');
   const deckCards = [...document.querySelectorAll('.pres--deck[data-deck]')];
   if (deck && deckCards.length) {
-    const slideEl = deck.querySelector('.deck__slide');
+    const viewport = deck.querySelector('.deck__viewport');
+    const track = deck.querySelector('.deck__track');
     const strip = deck.querySelector('.deck__strip');
     const thumbsBox = deck.querySelector('.deck__thumbs');
     const counter = deck.querySelector('.deck__counter');
@@ -356,14 +357,13 @@
     const prevBtn = deck.querySelector('.deck__nav--prev');
     const nextBtn = deck.querySelector('.deck__nav--next');
     const closeBtn = deck.querySelector('.deck__close');
-    let slides = [], index = 0, lastFocus = null, swapTimer = 0;
+    let slides = [], index = 0, lastFocus = null, clearTimer = 0;
 
     const pad = (n) => String(n).padStart(2, '0');
     const thumbMetrics = () => {
       const cs = getComputedStyle(thumbsBox);
       return { tw: parseFloat(cs.getPropertyValue('--tw')), tg: parseFloat(cs.getPropertyValue('--tg')) };
     };
-    // сколько миниатюр видно: до 7 на десктопе, на телефоне — сколько влезает
     const visibleCount = () => {
       const { tw, tg } = thumbMetrics();
       const fit = Math.floor((deck.clientWidth - 32 + tg) / (tw + tg));
@@ -373,7 +373,6 @@
       const { tw, tg } = thumbMetrics();
       const v = visibleCount();
       thumbsBox.style.width = `${v * tw + (v - 1) * tg + 8}px`;
-      // активная — по центру окна, у краёв окно упирается в начало/конец списка
       const start = Math.min(Math.max(index - Math.floor(v / 2), 0), slides.length - v);
       strip.style.transform = `translateX(${-start * (tw + tg)}px)`;
       [...strip.children].forEach((t, i) => {
@@ -382,30 +381,36 @@
         t.tabIndex = i >= start && i < start + v ? 0 : -1;
       });
     };
+    // грузим текущий слайд и соседей
+    const loadAround = (i) => {
+      [i - 1, i, i + 1].forEach((k) => {
+        const img = track.children[k] && track.children[k].querySelector('img');
+        if (img && !img.getAttribute('src')) img.src = img.dataset.src;
+      });
+    };
+    const setTrack = (offsetPx = 0, animate = false) => {
+      track.classList.toggle('is-animating', animate);
+      track.style.transform = `translateX(calc(${-index * 100}% + ${offsetPx}px))`;
+    };
     const show = (i, animate = true) => {
       index = Math.min(Math.max(i, 0), slides.length - 1);
       counter.textContent = `${index + 1} / ${slides.length}`;
       prevBtn.disabled = index === 0;
       nextBtn.disabled = index === slides.length - 1;
+      [...track.children].forEach((it, k) => it.setAttribute('aria-hidden', String(k !== index)));
+      loadAround(index);
+      setTrack(0, animate);
       layoutThumbs();
-      const src = slides[index];
-      clearTimeout(swapTimer);
-      if (!animate) { slideEl.src = src; return; }
-      slideEl.classList.add('is-swapping');
-      swapTimer = setTimeout(() => {
-        slideEl.src = src;
-        const done = () => slideEl.classList.remove('is-swapping');
-        if (slideEl.complete) done(); else slideEl.onload = done;
-      }, 150);
-      // подгружаем соседний слайд заранее
-      if (slides[index + 1]) { const im = new Image(); im.src = slides[index + 1]; }
     };
-    const open = (card) => {
+    const build = (card) => {
       const slug = card.dataset.deck;
       const count = Number(card.dataset.count);
+      const title = card.dataset.title;
       slides = Array.from({ length: count }, (_, k) => `assets/slides/${slug}/${pad(k + 1)}.jpg`);
-      titleEl.textContent = card.dataset.title;
-      slideEl.alt = `Слайд презентации «${card.dataset.title}»`;
+      titleEl.textContent = title;
+      // лента и миниатюры собираются заново — прошлая презентация не мелькает
+      track.innerHTML = slides.map((src, k) =>
+        `<div class="deck__item"><img class="deck__slide" data-src="${src}" alt="Слайд ${k + 1} из ${count} — «${title}»" draggable="false"></div>`).join('');
       strip.innerHTML = '';
       slides.forEach((src, k) => {
         const b = document.createElement('button');
@@ -417,7 +422,11 @@
         b.addEventListener('click', () => show(k));
         strip.appendChild(b);
       });
+    };
+    const open = (card) => {
+      clearTimeout(clearTimer);
       lastFocus = document.activeElement;
+      build(card);
       strip.style.transition = 'none';
       show(0, false);
       requestAnimationFrame(() => { strip.style.transition = ''; });
@@ -430,33 +439,64 @@
       deck.classList.remove('is-open');
       deck.setAttribute('aria-hidden', 'true');
       document.documentElement.style.overflow = '';
+      // после анимации закрытия очищаем ленту, чтобы при следующем открытии не было старых слайдов
+      clearTimer = setTimeout(() => { track.innerHTML = ''; strip.innerHTML = ''; }, 320);
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
     deckCards.forEach((card) => card.addEventListener('click', () => open(card)));
     prevBtn.addEventListener('click', () => show(index - 1));
     nextBtn.addEventListener('click', () => show(index + 1));
     closeBtn.addEventListener('click', close);
-    // клик по пустому месту вокруг слайда — закрыть
-    deck.querySelector('.deck__stage').addEventListener('click', (e) => { if (e.target === e.currentTarget) close(); });
     document.addEventListener('keydown', (e) => {
       if (!deck.classList.contains('is-open')) return;
       if (e.key === 'Escape') close();
       if (e.key === 'ArrowLeft') show(index - 1);
       if (e.key === 'ArrowRight') show(index + 1);
     });
-    // Телефон: тап по левой/правой половине слайда и свайп
-    const stage = deck.querySelector('.deck__stage');
-    let tx = null, swiped = false;
-    stage.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; swiped = false; }, { passive: true });
-    stage.addEventListener('touchend', (e) => {
-      if (tx === null) return;
-      const dx = e.changedTouches[0].clientX - tx;
-      if (Math.abs(dx) > 40) { swiped = true; show(index + (dx < 0 ? 1 : -1)); }
-      tx = null;
+
+    // Перетаскивание: лента едет за пальцем/мышью, при отпускании доводится до слайда
+    let startX = 0, startY = 0, dx = 0, startT = 0, dragging = false, decided = false, horizontal = false, moved = false;
+    viewport.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      dragging = true; decided = false; horizontal = false; moved = false;
+      startX = e.clientX; startY = e.clientY; dx = 0; startT = performance.now();
+      track.classList.remove('is-animating');
     });
-    deck.querySelector('.deck__zone--prev').addEventListener('click', () => { if (!swiped) show(index - 1); swiped = false; });
-    deck.querySelector('.deck__zone--next').addEventListener('click', () => { if (!swiped) show(index + 1); swiped = false; });
-    window.addEventListener('resize', () => { if (deck.classList.contains('is-open')) layoutThumbs(); });
+    viewport.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      const mx = e.clientX - startX, my = e.clientY - startY;
+      if (!decided && (Math.abs(mx) > 6 || Math.abs(my) > 6)) {
+        decided = true;
+        horizontal = Math.abs(mx) > Math.abs(my);
+        if (horizontal) { try { viewport.setPointerCapture(e.pointerId); } catch {} viewport.classList.add('is-dragging'); }
+      }
+      if (!horizontal) return;
+      moved = true;
+      dx = mx;
+      // на краях — «резинка»
+      const atEdge = (index === 0 && dx > 0) || (index === slides.length - 1 && dx < 0);
+      setTrack(atEdge ? dx * 0.3 : dx, false);
+    });
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      viewport.classList.remove('is-dragging');
+      if (!horizontal) return;
+      const w = viewport.clientWidth;
+      const v = Math.abs(dx) / Math.max(1, performance.now() - startT); // px/мс
+      let next = index;
+      if (Math.abs(dx) > w * 0.18 || (v > 0.45 && Math.abs(dx) > 20)) next = index + (dx < 0 ? 1 : -1);
+      show(next, true);
+      dx = 0;
+    };
+    viewport.addEventListener('pointerup', endDrag);
+    viewport.addEventListener('pointercancel', endDrag);
+    // клик по пустому месту вокруг слайда (не после перетаскивания) — закрыть
+    viewport.addEventListener('click', (e) => {
+      if (moved) { moved = false; return; }
+      if (e.target.classList.contains('deck__item') && window.matchMedia('(hover: hover)').matches) close();
+    });
+    window.addEventListener('resize', () => { if (deck.classList.contains('is-open')) { setTrack(0, false); layoutThumbs(); } });
   }
 
   // Презентация-прототип из Figma (Smart Animate): iframe грузится только по клику
