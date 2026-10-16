@@ -20,7 +20,7 @@
     } else {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        showToast('Резюме скоро появится — пока напиши мне в Telegram');
+        showToast('Резюме скоро появится - пока напиши мне в Telegram');
       });
     }
   });
@@ -410,7 +410,7 @@
       titleEl.textContent = title;
       // лента и миниатюры собираются заново — прошлая презентация не мелькает
       track.innerHTML = slides.map((src, k) =>
-        `<div class="deck__item"><img class="deck__slide" data-src="${src}" alt="Слайд ${k + 1} из ${count} — «${title}»" draggable="false"></div>`).join('');
+        `<div class="deck__item"><img class="deck__slide" data-src="${src}" alt="Слайд ${k + 1} из ${count} - «${title}»" draggable="false"></div>`).join('');
       strip.innerHTML = '';
       slides.forEach((src, k) => {
         const b = document.createElement('button');
