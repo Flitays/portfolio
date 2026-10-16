@@ -444,14 +444,15 @@
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
     deckCards.forEach((card) => card.addEventListener('click', () => open(card)));
-    prevBtn.addEventListener('click', () => show(index - 1));
-    nextBtn.addEventListener('click', () => show(index + 1));
+    // стрелки и клавиатура — мгновенное переключение, без анимации ленты
+    prevBtn.addEventListener('click', () => show(index - 1, false));
+    nextBtn.addEventListener('click', () => show(index + 1, false));
     closeBtn.addEventListener('click', close);
     document.addEventListener('keydown', (e) => {
       if (!deck.classList.contains('is-open')) return;
       if (e.key === 'Escape') close();
-      if (e.key === 'ArrowLeft') show(index - 1);
-      if (e.key === 'ArrowRight') show(index + 1);
+      if (e.key === 'ArrowLeft') show(index - 1, false);
+      if (e.key === 'ArrowRight') show(index + 1, false);
     });
 
     // Перетаскивание: лента едет за пальцем/мышью, при отпускании доводится до слайда
