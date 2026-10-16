@@ -12,7 +12,7 @@
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <link rel="preload" href="../assets/fonts/Geist.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="../case.css">
-  <script>document.documentElement.classList.add('js')</script>
+  <script>document.documentElement.classList.add('js');try{var k='seen:'+location.pathname;if(sessionStorage.getItem(k))document.documentElement.classList.add('seen');sessionStorage.setItem(k,'1')}catch(e){}</script>
   <!-- Vercel Web Analytics -->
   <script>window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };</script>
   <script defer src="/_vercel/insights/script.js"></script>

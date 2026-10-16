@@ -372,11 +372,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case-nav a:active { transform: scale(.94); }
 .case-nav img, .case-nav svg { width: 20px; height: 20px; }
 
-/* ---------- Появление страницы: лёгкий фейд всей страницы разом (чистый CSS, без JS) ---------- */
-body { animation: page-in .2s ease both; }
-@keyframes page-in { from { opacity: 0; } }
+/* ---------- Появление блоков при скролле — только при первом заходе на страницу ---------- */
+.js:not(.seen) .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
+.js:not(.seen) .reveal.is-visible { opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) {
-  body { animation: none; }
+  .js:not(.seen) .reveal { opacity: 1; transform: none; transition: none; }
   *, *::before, *::after { transition-duration: 0s !important; }
 }
 

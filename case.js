@@ -111,6 +111,22 @@
   });
 
 
+  // Появление блоков при скролле — только при первом заходе на страницу в этой сессии
+  const reveals = document.querySelectorAll('.reveal');
+  if (document.documentElement.classList.contains('seen') || !('IntersectionObserver' in window)) {
+    reveals.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+  }
+
   // Видео играют только когда видны на экране
   if ('IntersectionObserver' in window) {
     const vio = new IntersectionObserver((entries) => {

@@ -119,6 +119,22 @@
   window.addEventListener('resize', () => { const i = currentIndex; currentIndex = -2; movePill(i); });
   setActive();
 
+  // Появление блоков при скролле — только при первом заходе на страницу в этой сессии
+  const reveals = document.querySelectorAll('.reveal');
+  if (document.documentElement.classList.contains('seen') || !('IntersectionObserver' in window)) {
+    reveals.forEach((el) => el.classList.add('is-visible'));
+  } else {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    reveals.forEach((el) => io.observe(el));
+  }
+
   // Якоря на странице (навигация в шапке) — плавно, но только по клику.
   // Глобальный scroll-behavior: smooth не используем: из-за него браузер «докручивал»
   // страницу при возврате с кейса.
