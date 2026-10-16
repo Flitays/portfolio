@@ -270,7 +270,6 @@
     dockMq.addEventListener('change', reset);
   }
 
-  // Мокапы Education: шаг на одну позицию «червяком».
   // Передний телефон трогается первым, остальные — с задержкой; все приходят одновременно.
   const strip = document.querySelector('[data-mockups]');
   if (strip && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && 'animate' in Element.prototype) {
