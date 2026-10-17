@@ -119,7 +119,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   gap: 72px;
 }
 .block { display: flex; flex-direction: column; gap: 32px; scroll-margin-top: 85px; }
-.block--tight { gap: 24px; }
+.block--tight { gap: 12px; }
 .inset { padding: 0 72px; display: flex; flex-direction: column; gap: 16px; }
 .stack-32 { display: flex; flex-direction: column; gap: 32px; }
 .stack-16 { display: flex; flex-direction: column; gap: 16px; }
@@ -208,6 +208,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   }
 }
 @media (hover: none) { .link-preview__card { display: none; } }
+
+/* ---------- Две картинки рядом ---------- */
+.media-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
+.media-row > * { margin: 0; }
+.media-row .media-ph { padding: 16px; }
+@media (max-width: 600px) { .media-row { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- Заглушка для медиа, которого пока нет ---------- */
 .media-ph {
