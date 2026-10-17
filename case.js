@@ -98,6 +98,19 @@
     });
   });
 
+  // Карточка-превью у ссылок на кейсы: выбираем сторону, где хватает места
+  document.querySelectorAll('.link-preview').forEach((link) => {
+    const card = link.querySelector('.link-preview__card');
+    const place = () => {
+      const header = document.querySelector('.case-header');
+      const top = header ? header.getBoundingClientRect().bottom : 0;
+      const need = (card.offsetHeight || 220) + 16;
+      link.classList.toggle('is-below', link.getBoundingClientRect().top - top < need);
+    };
+    link.addEventListener('mouseenter', place);
+    link.addEventListener('focus', place);
+  });
+
   // Миниатюры и ссылки по странице — плавный скролл
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
