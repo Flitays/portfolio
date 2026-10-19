@@ -121,6 +121,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 /* Медиа сразу после своего текстового раздела — вплотную к тексту (12px), а не через отступ между разделами */
 .case > section.block + div.block--tight { margin-top: calc(12px - var(--case-gap)); }
+/* Текст, продолжающийся под картинкой, — на 32px от неё (12px gap блока + 20px) */
+.block--tight > :is(.picture, .media-row, .media-ph) + .inset { margin-top: 20px; }
 .block { display: flex; flex-direction: column; gap: 32px; scroll-margin-top: 85px; }
 .block--tight { gap: 12px; }
 .inset { padding: 0 72px; display: flex; flex-direction: column; gap: 16px; }
