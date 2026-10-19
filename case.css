@@ -217,6 +217,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ---------- Две картинки рядом ---------- */
 .media-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px; }
 .media-row > * { margin: 0; }
+.media-cell { display: flex; flex-direction: column; gap: 12px; }
 .media-row .media-ph { padding: 16px; }
 @media (max-width: 600px) { .media-row { grid-template-columns: minmax(0, 1fr); } }
 
