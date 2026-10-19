@@ -191,7 +191,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   display: flex; flex-direction: column; gap: 6px;
   color: var(--text); text-decoration: none; white-space: normal;
   opacity: 0; visibility: hidden; filter: blur(6px);
-  transform: translate(-50%, 6px) scale(.96);
+  transform: translate(calc(-50% + var(--lp-dx, 0px)), 6px) scale(.96);
   transform-origin: 50% 100%;
   transition: opacity .25s var(--ease), filter .25s var(--ease), transform .25s var(--ease), visibility 0s linear .25s;
 }
@@ -203,12 +203,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .link-preview__year { font-size: 13px; line-height: 18px; color: rgba(31, 31, 31, .5); white-space: nowrap; }
 .link-preview__cta { padding: 0 6px 4px; font-size: 13px; line-height: 18px; color: var(--blue); }
 /* если сверху не хватает места (шапка) — карточка открывается под ссылкой */
-.link-preview.is-below .link-preview__card { bottom: auto; top: calc(100% + 10px); transform-origin: 50% 0; transform: translate(-50%, -6px) scale(.96); }
+.link-preview.is-below .link-preview__card { bottom: auto; top: calc(100% + 10px); transform-origin: 50% 0; transform: translate(calc(-50% + var(--lp-dx, 0px)), -6px) scale(.96); }
 .link-preview.is-below .link-preview__card::after { top: auto; bottom: 100%; }
 @media (hover: hover) {
   .link-preview:hover .link-preview__card, .link-preview:focus-visible .link-preview__card {
     opacity: 1; visibility: visible; filter: blur(0);
-    transform: translate(-50%, 0) scale(1);
+    transform: translate(calc(-50% + var(--lp-dx, 0px)), 0) scale(1);
     transition: opacity .25s var(--ease), filter .25s var(--ease), transform .25s var(--ease), visibility 0s;
   }
 }

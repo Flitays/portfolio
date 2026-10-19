@@ -106,6 +106,15 @@
       const top = header ? header.getBoundingClientRect().bottom : 0;
       const need = (card.offsetHeight || 220) + 16;
       link.classList.toggle('is-below', link.getBoundingClientRect().top - top < need);
+      // по горизонтали — не даём карточке вылезти за край экрана
+      const r = link.getBoundingClientRect();
+      const w = card.offsetWidth || 248;
+      const center = r.left + r.width / 2;
+      const pad = 12;
+      let dx = 0;
+      if (center - w / 2 < pad) dx = pad - (center - w / 2);
+      if (center + w / 2 > window.innerWidth - pad) dx = window.innerWidth - pad - (center + w / 2);
+      card.style.setProperty('--lp-dx', `${Math.round(dx)}px`);
     };
     link.addEventListener('mouseenter', place);
     link.addEventListener('focus', place);
