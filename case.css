@@ -115,9 +115,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   margin: 0 auto;
   /* 61px шапка + 48px — как на главной */
   padding: 109px var(--gutter) 160px;
+  --case-gap: 72px;
   display: flex; flex-direction: column;
-  gap: 72px;
+  gap: var(--case-gap);
 }
+/* Медиа сразу после своего текстового раздела — вплотную к тексту (12px), а не через отступ между разделами */
+.case > section.block + div.block--tight { margin-top: calc(12px - var(--case-gap)); }
 .block { display: flex; flex-direction: column; gap: 32px; scroll-margin-top: 85px; }
 .block--tight { gap: 12px; }
 .inset { padding: 0 72px; display: flex; flex-direction: column; gap: 16px; }
@@ -492,7 +495,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ---------- Responsive ---------- */
 @media (max-width: 767px) {
   :root { --gutter: 16px; }
-  .case { gap: 56px; padding-bottom: 120px; }
+  .case { --case-gap: 56px; padding-bottom: 120px; }
   .inset { padding: 0; }
   .case-top .summary { margin: 0; }
   .case { padding-top: 93px; }
