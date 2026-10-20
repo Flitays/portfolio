@@ -703,7 +703,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .c-gap { margin-top: 16px; }            /* абзац после пустой строки: 6 + 16 = 22px */
 .c-label-gap { margin-top: 10px; }
 .c-fields { padding-left: 0; gap: 4px; }
-.c-note { color: rgba(31, 31, 31, .3); }
 .c-tile-soft { background: var(--muted-bg); }
 .c-tile-figma { min-height: 118px; gap: 24px; }
 .c-tile-figma > div:first-child { display: flex; flex-direction: column; gap: 4px; padding-right: 48px; }
