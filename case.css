@@ -718,3 +718,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .c-item ul li::marker { color: rgba(31, 31, 31, .4); }
 .c-item > p + p:has(.lead-label) { margin-top: 10px; }
 .c-brand__round { border-radius: 6px; }
+
+/* Картинки по ширине текста в обычной раскладке кейса (Education) */
+.case--inset-media .block--tight > :is(.picture, .media-row, .media-ph, .caption) { margin-left: 72px; margin-right: 72px; }
+@media (max-width: 767px) {
+  .case--inset-media .block--tight > :is(.picture, .media-row, .media-ph, .caption) { margin-left: 0; margin-right: 0; }
+}
