@@ -626,8 +626,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case--kv .prose ul { padding-left: 24px; gap: 0; }
 .case--kv .inset > :is(.picture, .compare) { margin: 8px 0; }
 .case--kv .inset > :is(.picture, .compare) + .kv-caption { margin-top: -12px; }
-.case--kv .points { gap: 20px; }
-.case--kv .point { border-bottom: 0; padding-bottom: 0; }
 .case--kv .review { display: flex; flex-direction: column; gap: 24px; margin: 0; }
 .kv-hyp .inset > .picture { margin-top: 0; }
 .kv-hyp .inset > .picture + .h3 { margin-top: 8px; }
