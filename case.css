@@ -685,3 +685,6 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .compare.is-past .compare__tag--after { opacity: 1; }
 .compare.is-end .compare__tag--before { opacity: 0; }
 @media (max-width: 767px) { .compare { border-radius: 20px; } }
+.case--kv .media-ph { aspect-ratio: 538 / 310; }
+.kv-hyp .inset > .media-ph + .h3 { margin-top: 16px; }
+.kv-center { display: flex; justify-content: center; margin-top: -12px; }
