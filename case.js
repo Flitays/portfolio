@@ -239,4 +239,46 @@
     }, { threshold: 0.25 });
     document.querySelectorAll('video[data-autoplay]').forEach((v) => vio.observe(v));
   }
+
+  // Слайдер «до / после»: мышью шторка идёт за курсором и возвращается при уходе,
+  // на тач-экране тянется пальцем, с клавиатуры — стрелками
+  document.querySelectorAll('.compare').forEach((box) => {
+    let pos = 0;
+    let dragging = false;
+    const set = (v, anim) => {
+      pos = Math.max(0, Math.min(100, v));
+      box.classList.toggle('is-anim', !!anim);
+      box.style.setProperty('--pos', `${pos}%`);
+      box.classList.toggle('is-past', pos > 12);
+      box.classList.toggle('is-end', pos > 88);
+      box.setAttribute('aria-valuenow', String(Math.round(pos)));
+    };
+    const fromEvent = (e) => {
+      const r = box.getBoundingClientRect();
+      return ((e.clientX - r.left) / r.width) * 100;
+    };
+    box.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') set(fromEvent(e), true); });
+    box.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'mouse' || dragging) set(fromEvent(e), false);
+    });
+    box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') set(0, true); });
+    box.addEventListener('pointerdown', (e) => {
+      if (e.pointerType === 'mouse') return;
+      dragging = true;
+      box.classList.add('is-drag');
+      box.setPointerCapture(e.pointerId);
+      set(fromEvent(e), true);
+    });
+    const stop = () => { dragging = false; box.classList.remove('is-drag'); };
+    box.addEventListener('pointerup', stop);
+    box.addEventListener('pointercancel', stop);
+    box.addEventListener('keydown', (e) => {
+      const step = { ArrowRight: 10, ArrowUp: 10, ArrowLeft: -10, ArrowDown: -10 }[e.key];
+      if (e.key === 'Home') set(0, true);
+      else if (e.key === 'End') set(100, true);
+      else if (step) set(pos + step, true);
+      else return;
+      e.preventDefault();
+    });
+  });
 })();
