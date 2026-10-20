@@ -120,6 +120,86 @@
     link.addEventListener('focus', place);
   });
 
+  // Картинки кейса открываются в модалке (кроме обложки, иконок, аватаров и превью ссылок)
+  const zoomImgs = [...document.querySelectorAll('.case .picture img, .case .solution__img img, .case .inset > img')]
+    .filter((img) => !img.closest('.case-top'));
+  if (zoomImgs.length) {
+    const svg = (d) => `<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="${d}"/></svg>`;
+    const lb = document.createElement('div');
+    lb.className = 'case-lightbox';
+    lb.setAttribute('role', 'dialog');
+    lb.setAttribute('aria-modal', 'true');
+    lb.setAttribute('aria-label', 'Просмотр изображения');
+    lb.setAttribute('aria-hidden', 'true');
+    lb.innerHTML = `<img class="case-lightbox__img" alt="">
+      <span class="case-lightbox__counter"></span>
+      <button class="case-lightbox__btn case-lightbox__btn--close" type="button" aria-label="Закрыть">${svg('M5 5l10 10M15 5L5 15')}</button>
+      <button class="case-lightbox__btn case-lightbox__btn--prev" type="button" aria-label="Предыдущее изображение">${svg('M12 4l-6 6 6 6')}</button>
+      <button class="case-lightbox__btn case-lightbox__btn--next" type="button" aria-label="Следующее изображение">${svg('M8 4l6 6-6 6')}</button>`;
+    document.body.appendChild(lb);
+    const big = lb.querySelector('.case-lightbox__img');
+    const counter = lb.querySelector('.case-lightbox__counter');
+    const prev = lb.querySelector('.case-lightbox__btn--prev');
+    const next = lb.querySelector('.case-lightbox__btn--next');
+    const closeBtn = lb.querySelector('.case-lightbox__btn--close');
+    let index = 0, lastFocus = null;
+    const set = (i) => {
+      index = Math.min(Math.max(i, 0), zoomImgs.length - 1);
+      const src = zoomImgs[index];
+      big.src = src.currentSrc || src.src;
+      big.alt = src.alt;
+      counter.textContent = zoomImgs.length > 1 ? `${index + 1} / ${zoomImgs.length}` : '';
+      prev.hidden = index === 0;
+      next.hidden = index === zoomImgs.length - 1;
+    };
+    const go = (i) => {
+      if (i < 0 || i >= zoomImgs.length || i === index) return;
+      big.classList.add('is-swapping');
+      setTimeout(() => {
+        set(i);
+        const done = () => big.classList.remove('is-swapping');
+        if (big.complete) done(); else big.onload = done;
+      }, 150);
+    };
+    const open = (i) => {
+      lastFocus = document.activeElement;
+      set(i);
+      lb.setAttribute('aria-hidden', 'false');
+      lb.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
+      closeBtn.focus({ preventScroll: true });
+    };
+    const close = () => {
+      lb.classList.remove('is-open');
+      lb.setAttribute('aria-hidden', 'true');
+      document.documentElement.style.overflow = '';
+      if (lastFocus) lastFocus.focus({ preventScroll: true });
+    };
+    zoomImgs.forEach((img, i) => {
+      img.classList.add('zoomable');
+      img.addEventListener('click', () => open(i));
+    });
+    lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
+    closeBtn.addEventListener('click', close);
+    prev.addEventListener('click', () => go(index - 1));
+    next.addEventListener('click', () => go(index + 1));
+    document.addEventListener('keydown', (e) => {
+      if (!lb.classList.contains('is-open')) return;
+      if (e.key === 'Escape') close();
+      if (e.key === 'ArrowLeft') go(index - 1);
+      if (e.key === 'ArrowRight') go(index + 1);
+    });
+    // свайп на телефоне
+    let tx = null;
+    lb.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', (e) => {
+      if (tx === null) return;
+      const dx = e.changedTouches[0].clientX - tx;
+      if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+      tx = null;
+    });
+  }
+
   // Миниатюры и ссылки по странице — плавный скролл
   document.querySelectorAll('a[href^="#"]').forEach((a) => {
     a.addEventListener('click', (e) => {
