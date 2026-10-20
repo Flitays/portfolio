@@ -622,8 +622,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case--narrow .h2 { font-size: 24px; line-height: 30px; }
 .case--narrow .prose { gap: 6px; }
 .case--narrow .prose ul { padding-left: 24px; gap: 0; }
-.case--narrow .inset > :is(.picture, .compare) { margin: 8px 0; }
-.case--narrow .inset > :is(.picture, .compare) + .c-caption { margin-top: -12px; }
+.case--narrow .inset > :is(.picture, .compare, .media-ph, .table-wrap) { margin: 8px 0; }
+.case--narrow .inset > :is(.picture, .media-ph) + :is(.picture, .media-ph) { margin-top: -12px; }
+.case--narrow .inset > :is(.picture, .compare, .media-ph) + .c-caption { margin-top: -12px; }
 .case--narrow .review { display: flex; flex-direction: column; gap: 24px; margin: 0; }
 .c-hyp .inset > .picture { margin-top: 0; }
 .c-hyp .inset > .picture + .h3 { margin-top: 8px; }
@@ -683,7 +684,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .compare.is-end .compare__tag--before { opacity: 0; }
 @media (max-width: 767px) { .compare { border-radius: 20px; } }
 .case--narrow .media-ph { aspect-ratio: 538 / 310; }
-.c-hyp .inset > .media-ph + .h3 { margin-top: 16px; }
+.c-hyp .inset > :is(.picture, .media-ph):first-child { margin-top: 0; }
+.c-hyp .inset > .media-ph + .h3 { margin-top: 8px; }
 .c-center { display: flex; justify-content: center; margin-top: -12px; }
 
 /* ---------- Видео: подложка-скелетон и плавное появление ---------- */
@@ -709,3 +711,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .c-tile-figma__logo { position: absolute; top: 12px; right: 12px; width: 48px; height: 48px; padding: 9px; border-radius: 50%; background: var(--muted-bg); }
 /* мокап ноутбука: на всю высоту плитки, прижат к низу, верх с пустым полем обрезается */
 .c-tile-soft .tile__img { width: 218px; height: 144px; object-fit: cover; object-position: center bottom; }
+/* номер вместо иконки в заголовке карточки и карточка из нескольких абзацев (МИП) */
+.g-card__num { min-width: 16px; font-variant-numeric: tabular-nums; }
+.c-item { display: flex; flex-direction: column; gap: 6px; }
+.c-item ul { padding-left: 24px; }
+.c-item ul li::marker { color: rgba(31, 31, 31, .4); }
+.c-item > p + p:has(.lead-label) { margin-top: 10px; }
+.c-brand__round { border-radius: 6px; }
