@@ -221,6 +221,25 @@
     reveals.forEach((el) => io.observe(el));
   }
 
+  // Видео: пока грузится — серая подложка с переливом, затем плавно проявляется,
+  // когда реально пошло воспроизведение (без скачка «обложка → первый кадр»)
+  const autoVideos = [...document.querySelectorAll('video[data-autoplay]')];
+  autoVideos.forEach((v) => {
+    if (reduceMotion) { v.classList.add('is-ready'); return; }
+    v.addEventListener('playing', () => v.classList.add('is-ready'), { once: true });
+  });
+  // Начинаем грузить заранее, на подлёте к экрану
+  if ('IntersectionObserver' in window) {
+    const pre = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.preload = 'auto';
+        pre.unobserve(entry.target);
+      });
+    }, { rootMargin: '600px 0px' });
+    autoVideos.forEach((v) => pre.observe(v));
+  }
+
   // Видео играют только когда видны на экране
   if ('IntersectionObserver' in window) {
     const vio = new IntersectionObserver((entries) => {

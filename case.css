@@ -684,3 +684,16 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case--kv .media-ph { aspect-ratio: 538 / 310; }
 .kv-hyp .inset > .media-ph + .h3 { margin-top: 16px; }
 .kv-center { display: flex; justify-content: center; margin-top: -12px; }
+
+/* ---------- Видео: подложка-скелетон и плавное появление ---------- */
+/* скрыто с первой отрисовки (класс .js ставится в <head>), проявляется, когда пошло воспроизведение */
+.picture video { transition: opacity .5s var(--ease); }
+.js .picture video[data-autoplay]:not(.is-ready) { opacity: 0; }
+.picture:has(> video) { position: relative; }
+.js .picture:has(> video[data-autoplay]:not(.is-ready))::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, .55) 50%, transparent 70%) var(--muted-bg);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s linear infinite;
+}
+@keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
