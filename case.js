@@ -235,7 +235,7 @@
   // Слайдер «до / после»: мышью шторка идёт за курсором и возвращается при уходе,
   // на тач-экране тянется пальцем, с клавиатуры — стрелками
   document.querySelectorAll('.compare').forEach((box) => {
-    let pos = 100;
+    let pos = 50;
     let dragging = false;
     const set = (v, anim) => {
       pos = Math.max(0, Math.min(100, v));
@@ -249,11 +249,12 @@
       const r = box.getBoundingClientRect();
       return ((e.clientX - r.left) / r.width) * 100;
     };
+    set(pos, false);
     box.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') set(fromEvent(e), true); });
     box.addEventListener('pointermove', (e) => {
       if (e.pointerType === 'mouse' || dragging) set(fromEvent(e), false);
     });
-    box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') set(100, true); });
+    box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') set(50, true); });
     box.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'mouse') return;
       dragging = true;

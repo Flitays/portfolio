@@ -636,7 +636,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* ---------- Слайдер «до / после» ---------- */
 @property --pos { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
 .compare {
-  --pos: 100%;
+  --pos: 50%;
   position: relative;
   aspect-ratio: 1286 / 741;
   border-radius: 24px;
