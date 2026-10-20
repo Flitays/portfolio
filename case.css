@@ -236,7 +236,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .lead-label { color: rgba(31, 31, 31, .5); }
 
 /* Команда: число + значок (?) с тултипом состава */
-.team { display: inline-flex; align-items: center; gap: 6px; }
+.team { display: inline-flex; align-items: center; gap: 6px; cursor: default; }
 .team-info {
   width: 18px; height: 18px;
   display: grid; place-items: center;
@@ -244,7 +244,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   color: rgba(31, 31, 31, .4);
   transition: color .2s var(--ease);
 }
-.team-info:hover, .team-info:focus-visible { color: var(--text); }
+.team:hover .team-info, .team-info:focus-visible { color: var(--text); }
 .team-info svg { width: 16px; height: 16px; }
 [data-tip-wrap]::after {
   white-space: normal;
@@ -255,7 +255,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 /* значок стоит у правого края строки — подсказка раскрывается влево и вниз (сверху мешает шапка) */
 .team-info[data-tip]::after { left: auto; right: -6px; bottom: auto; top: calc(100% + 8px); transform: translateY(-4px) scale(.94); transform-origin: 100% 0; }
-.team-info[data-tip]:hover::after, .team-info[data-tip]:focus-visible::after { transform: none; }
+/* подсказка открывается при наведении и на число, и на значок */
+.team:hover .team-info[data-tip]::after, .team-info[data-tip]:focus-visible::after { opacity: 1; filter: blur(0); transform: none; }
 
 /* Кнопка «Открыть в Figma» */
 .btn-figma {
