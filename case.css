@@ -124,7 +124,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 /* Одиночный заголовок группы разделов («Ключевые решения», «Этапы продукта») — вдвое ближе к первому разделу */
 .case > .block--heading + * { margin-top: calc(var(--case-gap) / 2 - var(--case-gap)); }
 /* Текст, продолжающийся под картинкой, — на 32px от неё (12px gap блока + 20px) */
-.block--tight > :is(.picture, .media-row, .media-ph) + .inset { margin-top: 20px; }
+.block--tight > :is(.picture, .media-row, .media-ph, .caption) + .inset { margin-top: 20px; }
 .block { display: flex; flex-direction: column; gap: 32px; scroll-margin-top: 85px; }
 .block--tight { gap: 12px; }
 .inset { padding: 0 72px; display: flex; flex-direction: column; gap: 16px; }
@@ -222,6 +222,55 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .media-cell { display: flex; flex-direction: column; gap: 12px; }
 .media-row .media-ph { padding: 16px; }
 @media (max-width: 600px) { .media-row { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- Пункты-карточки (как «Достижения» в опыте работы на главной) ---------- */
+.g-point { display: flex; flex-direction: column; gap: 4px; }
+.g-point__num { font-size: 14px; line-height: 20px; color: rgba(31, 31, 31, .4); }
+.g-point__title { color: var(--text); }
+.g-point__text { color: rgba(31, 31, 31, .6); }
+.g-point__list { margin: 4px 0 0; padding-left: 20px; color: rgba(31, 31, 31, .6); display: flex; flex-direction: column; gap: 2px; }
+.g-point__list li::marker { color: rgba(31, 31, 31, .35); }
+.inset > .g-card, .prose > .g-card { margin: 4px 0; }
+
+/* Метки «Результат:», «Компромисс:» и т. п. — обычный текст, серым */
+.lead-label { color: rgba(31, 31, 31, .5); }
+
+/* Команда: число + значок (?) с тултипом состава */
+.team { display: inline-flex; align-items: center; gap: 6px; }
+.team-info {
+  width: 18px; height: 18px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: rgba(31, 31, 31, .4);
+  transition: color .2s var(--ease);
+}
+.team-info:hover, .team-info:focus-visible { color: var(--text); }
+.team-info svg { width: 16px; height: 16px; }
+[data-tip-wrap]::after {
+  white-space: normal;
+  width: max-content; max-width: 260px;
+  text-align: left;
+  padding: 8px 10px;
+  line-height: 17px;
+}
+/* значок стоит у правого края строки — подсказка раскрывается влево и вниз (сверху мешает шапка) */
+.team-info[data-tip]::after { left: auto; right: -6px; bottom: auto; top: calc(100% + 8px); transform: translateY(-4px) scale(.94); transform-origin: 100% 0; }
+.team-info[data-tip]:hover::after, .team-info[data-tip]:focus-visible::after { transform: none; }
+
+/* Кнопка «Открыть в Figma» */
+.btn-figma {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 36px; padding: 0 15px;
+  border-radius: 60px;
+  background: var(--surface);
+  border: 1px solid #E6E6E9;
+  color: var(--text); text-decoration: none;
+  font-size: 15px; line-height: 20px;
+  transition: background-color .2s var(--ease), transform .2s var(--ease);
+}
+.btn-figma:hover { background: #F5F5F5; }
+.btn-figma:active { transform: scale(.97); }
+.btn-figma img { width: 16px; height: 16px; object-fit: contain; }
 
 /* ---------- Заглушка для медиа, которого пока нет ---------- */
 .media-ph {
