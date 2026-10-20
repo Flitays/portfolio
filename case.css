@@ -705,5 +705,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .c-fields { padding-left: 0; gap: 4px; }
 .c-tile-soft { background: var(--muted-bg); }
 .c-tile-figma { min-height: 118px; gap: 24px; }
-.c-tile-figma > div:first-child { display: flex; flex-direction: column; gap: 4px; padding-right: 48px; }
-.c-tile-figma__logo { position: absolute; top: 21px; right: 21px; width: 30px; height: 30px; }
+.c-tile-figma > div:first-child { display: flex; flex-direction: column; gap: 4px; padding-right: 60px; }
+.c-tile-figma__logo { position: absolute; top: 12px; right: 12px; width: 48px; height: 48px; padding: 9px; border-radius: 50%; background: var(--muted-bg); }
+/* мокап ноутбука: на всю высоту плитки, прижат к низу, верх с пустым полем обрезается */
+.c-tile-soft .tile__img { width: 218px; height: 144px; object-fit: cover; object-position: center bottom; }
