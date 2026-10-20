@@ -133,14 +133,10 @@
     lb.setAttribute('aria-hidden', 'true');
     lb.innerHTML = `<img class="case-lightbox__img" alt="">
       <span class="case-lightbox__counter"></span>
-      <button class="case-lightbox__btn case-lightbox__btn--close" type="button" aria-label="Закрыть">${svg('M5 5l10 10M15 5L5 15')}</button>
-      <button class="case-lightbox__btn case-lightbox__btn--prev" type="button" aria-label="Предыдущее изображение">${svg('M12 4l-6 6 6 6')}</button>
-      <button class="case-lightbox__btn case-lightbox__btn--next" type="button" aria-label="Следующее изображение">${svg('M8 4l6 6-6 6')}</button>`;
+      <button class="case-lightbox__btn case-lightbox__btn--close" type="button" aria-label="Закрыть">${svg('M5 5l10 10M15 5L5 15')}</button>`;
     document.body.appendChild(lb);
     const big = lb.querySelector('.case-lightbox__img');
     const counter = lb.querySelector('.case-lightbox__counter');
-    const prev = lb.querySelector('.case-lightbox__btn--prev');
-    const next = lb.querySelector('.case-lightbox__btn--next');
     const closeBtn = lb.querySelector('.case-lightbox__btn--close');
     let index = 0, lastFocus = null;
     const set = (i) => {
@@ -149,8 +145,6 @@
       big.src = src.currentSrc || src.src;
       big.alt = src.alt;
       counter.textContent = zoomImgs.length > 1 ? `${index + 1} / ${zoomImgs.length}` : '';
-      prev.hidden = index === 0;
-      next.hidden = index === zoomImgs.length - 1;
     };
     const go = (i) => {
       if (i < 0 || i >= zoomImgs.length || i === index) return;
@@ -181,8 +175,6 @@
     });
     lb.addEventListener('click', (e) => { if (e.target === lb) close(); });
     closeBtn.addEventListener('click', close);
-    prev.addEventListener('click', () => go(index - 1));
-    next.addEventListener('click', () => go(index + 1));
     document.addEventListener('keydown', (e) => {
       if (!lb.classList.contains('is-open')) return;
       if (e.key === 'Escape') close();

@@ -583,9 +583,10 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 }
 .case-lightbox.is-open { opacity: 1; visibility: visible; transition: opacity .3s var(--ease); }
 .case-lightbox__img {
-  max-width: min(92vw, 1400px);
-  max-height: calc(100vh - 48px);
-  max-height: calc(100dvh - 48px);
+  /* по бокам место под кнопку закрытия (24 + 44 + 16), чтобы фото её не перекрывало */
+  max-width: min(calc(100vw - 168px), 1400px);
+  max-height: calc(100vh - 168px);
+  max-height: calc(100dvh - 168px);
   width: auto; height: auto;
   border-radius: 12px;
   box-shadow: 0 30px 80px rgba(0, 0, 0, .45);
@@ -609,14 +610,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case-lightbox__btn:active { transform: scale(.94); }
 .case-lightbox__btn[hidden] { display: none; }
 .case-lightbox__btn svg { width: 20px; height: 20px; }
-.case-lightbox__btn--prev { left: 24px; }
-.case-lightbox__btn--next { right: 24px; }
 .case-lightbox__btn--close { top: 24px; right: 24px; margin-top: 0; }
 .case-lightbox__counter { position: fixed; top: 34px; left: 24px; color: rgba(255, 255, 255, .7); font-size: 15px; line-height: 20px; font-variant-numeric: tabular-nums; }
 @media (max-width: 767px) {
   .case-lightbox { padding: 12px; }
-  .case-lightbox__btn--prev, .case-lightbox__btn--next { display: none; }
-  .case-lightbox__img { max-width: 100%; border-radius: 8px; }
+  .case-lightbox__img { max-width: 100%; max-height: calc(100dvh - 160px); border-radius: 8px; }
 }
 
 /* ---------- КраеВидение: узкая колонка, картинки по ширине текста ---------- */
