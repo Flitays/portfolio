@@ -617,21 +617,22 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   .case-lightbox__img { max-width: 100%; max-height: calc(100dvh - 160px); border-radius: 8px; }
 }
 
-/* ---------- КраеВидение: узкая колонка, картинки по ширине текста ---------- */
-.case--kv { --case-gap: 48px; }
-.case--kv .h2 { font-size: 24px; line-height: 30px; }
-.case--kv .prose { gap: 6px; }
-.case--kv .prose ul { padding-left: 24px; gap: 0; }
-.case--kv .inset > :is(.picture, .compare) { margin: 8px 0; }
-.case--kv .inset > :is(.picture, .compare) + .kv-caption { margin-top: -12px; }
-.case--kv .review { display: flex; flex-direction: column; gap: 24px; margin: 0; }
-.kv-hyp .inset > .picture { margin-top: 0; }
-.kv-hyp .inset > .picture + .h3 { margin-top: 8px; }
-.kv-label { color: rgba(31, 31, 31, .5); margin-top: 10px; }
-.kv-caption { font-size: 12px; line-height: 16px; color: rgba(31, 31, 31, .5); text-align: center; }
-.kv-intro { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-.kv-brand { display: inline-flex; align-items: center; gap: 8px; }
-.kv-brand img { width: 20px; height: 20px; }
+/* ---------- Узкая колонка (КраеВидение, Навигатор): картинки по ширине текста ---------- */
+.case--narrow { --case-gap: 48px; }
+.case--narrow .h2 { font-size: 24px; line-height: 30px; }
+.case--narrow .prose { gap: 6px; }
+.case--narrow .prose ul { padding-left: 24px; gap: 0; }
+.case--narrow .inset > :is(.picture, .compare) { margin: 8px 0; }
+.case--narrow .inset > :is(.picture, .compare) + .c-caption { margin-top: -12px; }
+.case--narrow .review { display: flex; flex-direction: column; gap: 24px; margin: 0; }
+.c-hyp .inset > .picture { margin-top: 0; }
+.c-hyp .inset > .picture + .h3 { margin-top: 8px; }
+.c-label { color: rgba(31, 31, 31, .5); margin-top: 10px; }
+.c-caption { font-size: 12px; line-height: 16px; color: rgba(31, 31, 31, .5); text-align: center; }
+.c-intro { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+.c-intro .h1 { max-width: var(--text-w); }
+.c-brand { display: inline-flex; align-items: center; gap: 8px; }
+.c-brand img { width: 20px; height: 20px; }
 
 /* ---------- Слайдер «до / после» ---------- */
 @property --pos { syntax: "<percentage>"; inherits: true; initial-value: 0%; }
@@ -681,9 +682,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .compare.is-past .compare__tag--after { opacity: 1; }
 .compare.is-end .compare__tag--before { opacity: 0; }
 @media (max-width: 767px) { .compare { border-radius: 20px; } }
-.case--kv .media-ph { aspect-ratio: 538 / 310; }
-.kv-hyp .inset > .media-ph + .h3 { margin-top: 16px; }
-.kv-center { display: flex; justify-content: center; margin-top: -12px; }
+.case--narrow .media-ph { aspect-ratio: 538 / 310; }
+.c-hyp .inset > .media-ph + .h3 { margin-top: 16px; }
+.c-center { display: flex; justify-content: center; margin-top: -12px; }
 
 /* ---------- Видео: подложка-скелетон и плавное появление ---------- */
 /* скрыто с первой отрисовки (класс .js ставится в <head>), проявляется, когда пошло воспроизведение */
@@ -697,3 +698,13 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   animation: shimmer 1.4s linear infinite;
 }
 @keyframes shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+
+/* ---------- Узкая колонка: мелочи для «Навигатора» ---------- */
+.c-gap { margin-top: 16px; }            /* абзац после пустой строки: 6 + 16 = 22px */
+.c-label-gap { margin-top: 10px; }
+.c-fields { padding-left: 0; gap: 4px; }
+.c-note { color: rgba(31, 31, 31, .3); }
+.c-tile-soft { background: var(--muted-bg); }
+.c-tile-figma { min-height: 118px; gap: 24px; }
+.c-tile-figma > div:first-child { display: flex; flex-direction: column; gap: 4px; padding-right: 48px; }
+.c-tile-figma__logo { position: absolute; top: 21px; right: 21px; width: 30px; height: 30px; }
