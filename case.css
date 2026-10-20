@@ -718,3 +718,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .c-item ul li::marker { color: rgba(31, 31, 31, .4); }
 .c-item > p + p:has(.lead-label) { margin-top: 10px; }
 .c-brand__round { border-radius: 6px; }
+/* Таблица: серая шапка, белое тело со скруглёнными верхними углами */
+.table-wrap { background: var(--muted-bg); }
+.table { border-collapse: separate; border-spacing: 0; }
+.table td { background: var(--surface); }
+.table tbody tr:first-child td:first-child { border-top-left-radius: 12px; }
+.table tbody tr:first-child td:last-child { border-top-right-radius: 12px; }
