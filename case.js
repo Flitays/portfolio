@@ -243,14 +243,14 @@
   // Слайдер «до / после»: мышью шторка идёт за курсором и возвращается при уходе,
   // на тач-экране тянется пальцем, с клавиатуры — стрелками
   document.querySelectorAll('.compare').forEach((box) => {
-    let pos = 0;
+    let pos = 100;
     let dragging = false;
     const set = (v, anim) => {
       pos = Math.max(0, Math.min(100, v));
       box.classList.toggle('is-anim', !!anim);
       box.style.setProperty('--pos', `${pos}%`);
-      box.classList.toggle('is-past', pos > 12);
-      box.classList.toggle('is-end', pos > 88);
+      box.classList.toggle('is-past', pos < 88);
+      box.classList.toggle('is-end', pos < 12);
       box.setAttribute('aria-valuenow', String(Math.round(pos)));
     };
     const fromEvent = (e) => {
@@ -261,7 +261,7 @@
     box.addEventListener('pointermove', (e) => {
       if (e.pointerType === 'mouse' || dragging) set(fromEvent(e), false);
     });
-    box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') set(0, true); });
+    box.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') set(100, true); });
     box.addEventListener('pointerdown', (e) => {
       if (e.pointerType === 'mouse') return;
       dragging = true;
