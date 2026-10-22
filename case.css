@@ -629,6 +629,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .c-hyp .inset > .picture { margin-top: 0; }
 .c-hyp .inset > .picture + .h3 { margin-top: 8px; }
 .c-label { color: rgba(31, 31, 31, .5); margin-top: 10px; }
+.prose > .c-label:first-child { margin-top: 0; }
 .c-caption { font-size: 12px; line-height: 16px; color: rgba(31, 31, 31, .5); text-align: center; }
 .c-intro { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
 .c-intro .h1 { max-width: var(--text-w); }
@@ -724,3 +725,4 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .table td { background: var(--surface); }
 .table tbody tr:first-child td:first-child { border-top-left-radius: 12px; }
 .table tbody tr:first-child td:last-child { border-top-right-radius: 12px; }
+.c-label--first { margin-top: 0; }
