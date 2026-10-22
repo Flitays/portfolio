@@ -731,6 +731,7 @@ h3 { font-size: inherit; font-weight: 400; }
 
   .page { gap: 40px; padding-top: calc(var(--header-h) + 1px + 32px); }
   .projects { grid-template-columns: minmax(0, 1fr); }
+  .project[href="mip/"] { order: 1; } /* в одну колонку КраеВидение идёт третьим, МИП - последним */
   .pres { width: calc((100% - 4px) / 2); }
   .title { font-size: 22px; line-height: 28px; letter-spacing: -0.6px; }
   .about__card { padding: 24px; }
