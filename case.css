@@ -540,10 +540,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .case-nav img, .case-nav svg { width: 20px; height: 20px; }
 
 /* ---------- Появление блоков при скролле — только при первом заходе на страницу ---------- */
-.js:not(.seen) .reveal { opacity: 0; transform: translateY(16px); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.js:not(.seen) .reveal.is-visible { opacity: 1; transform: none; }
+.js:not(.seen) .reveal { opacity: 0; transform: translateY(16px); filter: blur(10px); transition: opacity .6s var(--ease), transform .6s var(--ease), filter .6s var(--ease); }
+/* filter: none, а не blur(0) — чтобы после появления блок не оставался отдельным слоем (тултипы, превью ссылок) */
+.js:not(.seen) .reveal.is-visible { opacity: 1; transform: none; filter: none; }
 @media (prefers-reduced-motion: reduce) {
-  .js:not(.seen) .reveal { opacity: 1; transform: none; transition: none; }
+  .js:not(.seen) .reveal { opacity: 1; transform: none; filter: none; transition: none; }
   *, *::before, *::after { transition-duration: 0s !important; }
 }
 
@@ -691,8 +692,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ---------- Видео: подложка-скелетон и плавное появление ---------- */
 /* скрыто с первой отрисовки (класс .js ставится в <head>), проявляется, когда пошло воспроизведение */
-.picture video { transition: opacity .5s var(--ease); }
-.js .picture video[data-autoplay]:not(.is-ready) { opacity: 0; }
+.picture video { transition: opacity .5s var(--ease), filter .5s var(--ease); }
+.js .picture video[data-autoplay]:not(.is-ready) { opacity: 0; filter: blur(10px); }
 .picture:has(> video) { position: relative; }
 .js .picture:has(> video[data-autoplay]:not(.is-ready))::after {
   content: ""; position: absolute; inset: 0; pointer-events: none;
