@@ -726,3 +726,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .table tbody tr:first-child td:first-child { border-top-left-radius: 12px; }
 .table tbody tr:first-child td:last-child { border-top-right-radius: 12px; }
 .c-label--first { margin-top: 0; }
+/* Пункты через тире (МИП: ограничения и проблемы) */
+.case--narrow .prose ul.c-dash, .c-dash { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.c-dash li { position: relative; padding-left: 20px; }
+.c-dash li::before { content: "-"; position: absolute; left: 0; color: rgba(31, 31, 31, .4); }
