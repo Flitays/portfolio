@@ -1,4 +1,19 @@
 (() => {
+  // Блокировка прокрутки под модалкой без «скачка»: страница получает отступ справа на ширину
+  // исчезнувшей полосы прокрутки, а фиксированные элементы сдвигаются через --sb (см. CSS)
+  const lockScroll = () => {
+    const h = document.documentElement;
+    const sb = innerWidth - h.clientWidth;
+    if (sb > 0) { h.style.setProperty('--sb', `${sb}px`); h.style.paddingRight = `${sb}px`; }
+    h.style.overflow = 'hidden';
+  };
+  const unlockScroll = () => {
+    const h = document.documentElement;
+    h.style.overflow = '';
+    h.style.paddingRight = '';
+    h.style.removeProperty('--sb');
+  };
+
   // Ссылка на резюме — вставь сюда URL (PDF, hh.ru, Google Drive и т.п.)
   const RESUME_URL = 'https://drive.google.com/file/d/1uZowFEQ-JIogMLKeHc2R57VcVjRtZW8_/view?usp=sharing';
 
@@ -192,13 +207,13 @@
       show(i);
       lightbox.setAttribute('aria-hidden', 'false');
       lightbox.classList.add('is-open');
-      document.documentElement.style.overflow = 'hidden';
+      lockScroll();
       lightbox.querySelector('.lightbox__btn--close').focus({ preventScroll: true });
     };
     const close = () => {
       lightbox.classList.remove('is-open');
       lightbox.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
+      unlockScroll();
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
     // Смена фото: уходит в блюр и проявляется следующее
@@ -358,13 +373,13 @@
       requestAnimationFrame(() => { strip.style.transition = ''; });
       deck.setAttribute('aria-hidden', 'false');
       deck.classList.add('is-open');
-      document.documentElement.style.overflow = 'hidden';
+      lockScroll();
       closeBtn.focus({ preventScroll: true });
     };
     const close = () => {
       deck.classList.remove('is-open');
       deck.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
+      unlockScroll();
       // после анимации закрытия очищаем ленту, чтобы при следующем открытии не было старых слайдов
       clearTimer = setTimeout(() => { track.innerHTML = ''; strip.innerHTML = ''; }, 320);
       if (lastFocus) lastFocus.focus({ preventScroll: true });
@@ -443,13 +458,13 @@
       frame.appendChild(iframe);
       proto.setAttribute('aria-hidden', 'false');
       proto.classList.add('is-open');
-      document.documentElement.style.overflow = 'hidden';
+      lockScroll();
       closeP.focus({ preventScroll: true });
     };
     const closeProto = () => {
       proto.classList.remove('is-open');
       proto.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
+      unlockScroll();
       // убираем iframe после анимации закрытия, чтобы не грузил процессор
       setTimeout(() => {
         frame.querySelector('iframe')?.remove();

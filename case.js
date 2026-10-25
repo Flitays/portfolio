@@ -1,4 +1,19 @@
 (() => {
+  // Блокировка прокрутки под модалкой без «скачка»: страница получает отступ справа на ширину
+  // исчезнувшей полосы прокрутки, а фиксированные элементы сдвигаются через --sb (см. CSS)
+  const lockScroll = () => {
+    const h = document.documentElement;
+    const sb = innerWidth - h.clientWidth;
+    if (sb > 0) { h.style.setProperty('--sb', `${sb}px`); h.style.paddingRight = `${sb}px`; }
+    h.style.overflow = 'hidden';
+  };
+  const unlockScroll = () => {
+    const h = document.documentElement;
+    h.style.overflow = '';
+    h.style.paddingRight = '';
+    h.style.removeProperty('--sb');
+  };
+
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // «Коротко о кейсе»: раскрытие с анимацией
@@ -160,13 +175,13 @@
       set(i);
       lb.setAttribute('aria-hidden', 'false');
       lb.classList.add('is-open');
-      document.documentElement.style.overflow = 'hidden';
+      lockScroll();
       closeBtn.focus({ preventScroll: true });
     };
     const close = () => {
       lb.classList.remove('is-open');
       lb.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
+      unlockScroll();
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
     zoomImgs.forEach((img, i) => {

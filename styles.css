@@ -761,3 +761,7 @@ h3 { font-size: inherit; font-weight: 400; }
   .pres__play { display: none; }
   .project--link:active, .pres--deck:active { background-color: #F2F2F2; }
 }
+
+/* Под открытой модалкой полоса прокрутки исчезает: фиксированные элементы остаются на месте (--sb ставит JS) */
+.header { right: var(--sb, 0px); }
+.toast { left: calc(50% - var(--sb, 0px) / 2); }

@@ -87,7 +87,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
   position: fixed; inset: 0 0 auto 0; z-index: 50;
   height: 61px;
   /* контейнер 1080px как на главной */
-  padding: 0 max(16px, calc((100% - 1080px) / 2));
+  padding: 0 max(16px, calc((100% - var(--sb, 0px) - 1080px) / 2));
   display: flex; justify-content: space-between; align-items: center;
   border-bottom: 1px solid hsl(0deg 0% 91.7647%);
   background: hsl(0deg 0% 96.0784% / 0.9);
@@ -726,3 +726,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .table tbody tr:first-child td:first-child { border-top-left-radius: 12px; }
 .table tbody tr:first-child td:last-child { border-top-right-radius: 12px; }
 .c-label--first { margin-top: 0; }
+
+/* Под открытой модалкой полоса прокрутки исчезает: фиксированные элементы остаются на месте (--sb ставит JS) */
+.case-header { right: var(--sb, 0px); }
+.toc { right: calc(24px + var(--sb, 0px)); }
+.case-nav { left: calc(50% - var(--sb, 0px) / 2); }
