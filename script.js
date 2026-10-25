@@ -126,7 +126,7 @@
     const last = sections[sections.length - 1];
     if (current === sections.length - 1 && y > last.offsetTop + last.offsetHeight) current = -1;
     // Дошли до контактов — подложка уходит
-    const contacts = document.getElementById('contacts');
+    const contacts = document.getElementById('colophon');
     if (contacts && contacts.getBoundingClientRect().top < window.innerHeight * 0.8) current = -1;
     movePill(current);
   };
@@ -481,6 +481,40 @@
   // Год в футере
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
+
+  // Местное время и погода в футере (погода — Open-Meteo, без ключа); время обновляется раз в минуту
+  const localTime = document.querySelector('[data-local-time]');
+  if (localTime) {
+    const { tz, city, lat, lon } = localTime.dataset;
+    const fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: tz });
+    let weather = '';
+    const render = () => { localTime.textContent = `${fmt.format(new Date())} ${city}${weather}`; };
+    render();
+    setInterval(render, 60000);
+    const describe = (code) => {
+      if (code === 0) return 'Ясно';
+      if (code <= 2) return 'Переменная облачность';
+      if (code === 3) return 'Пасмурно';
+      if (code <= 48) return 'Туман';
+      if (code <= 57) return 'Морось';
+      if (code <= 67) return 'Дождь';
+      if (code <= 77) return 'Снег';
+      if (code <= 82) return 'Ливень';
+      if (code <= 86) return 'Снегопад';
+      return 'Гроза';
+    };
+    if (lat && lon && window.fetch) {
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`)
+        .then((r) => (r.ok ? r.json() : Promise.reject()))
+        .then((d) => {
+          const c = d && d.current;
+          if (!c) return;
+          weather = ` · ${describe(c.weather_code)}, ${Math.round(c.temperature_2m)}°C`;
+          render();
+        })
+        .catch(() => {});
+    }
+  }
 
   // Видео-аватар: пауза, если вкладка не видна (экономим батарею)
   const video = document.querySelector('.avatar__video');

@@ -190,6 +190,19 @@ h3 { font-size: inherit; font-weight: 400; }
   font-size: 15px; line-height: 22px; letter-spacing: -0.15px;
   opacity: .8;
 }
+.inline-link {
+  white-space: nowrap;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-decoration-color: rgba(31, 31, 31, .2);
+  transition: text-decoration-color .2s ease;
+}
+.inline-link:hover, .inline-link:focus-visible { text-decoration-color: rgba(31, 31, 31, .7); }
+.inline-logo { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -3px; margin: 0 4px 0 1px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+.inline-link:hover .inline-logo, .inline-link:focus-visible .inline-logo { transform: rotate(-12deg) scale(1.1); }
+@media (prefers-reduced-motion: reduce) { .inline-logo { transition: none; } }
 
 /* ---------- Cards ---------- */
 .card {
@@ -643,25 +656,10 @@ h3 { font-size: inherit; font-weight: 400; }
 }
 .about__card p { font-size: 16px; line-height: 22px; letter-spacing: -0.16px; opacity: .8; }
 
-/* ---------- Contacts ---------- */
-.contacts { max-width: 682px; gap: 24px; }
-.contacts__head { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.contacts__sub { font-size: 16px; line-height: 22px; letter-spacing: -0.16px; opacity: .8; text-align: center; }
-.socials { display: flex; gap: 8px; }
-.social {
-  position: relative;
-  width: 44px; height: 44px;
-  display: grid; place-items: center;
-  border-radius: 10px;
-  background: var(--surface);
-  border: 1px solid #E6E6E9;
-  transition: background-color .2s var(--ease), transform .2s var(--ease);
-}
-.social img { width: 18px; height: 18px; object-fit: contain; }
-/* иконка Telegram визуально смещена вправо — компенсируем, размер кнопки не меняется */
-.social--tg { padding-right: 2px; }
-.social:hover { background: var(--hover-light); }
-.social:active { transform: scale(.94); }
+/* ---------- Colophon ---------- */
+.colophon { max-width: 640px; gap: 12px; padding: 32px 0 16px; }
+.colophon__title { font-size: 20px; line-height: 26px; letter-spacing: -0.4px; font-weight: 500; text-align: center; }
+.colophon__text { font-size: 16px; line-height: 24px; letter-spacing: -0.16px; text-align: center; color: rgba(31, 31, 31, .6); text-wrap: balance; }
 
 /* ---------- Tooltip (Apple-like blur in/out) ---------- */
 [data-tip] { position: relative; }
@@ -688,16 +686,19 @@ h3 { font-size: inherit; font-weight: 400; }
 
 /* ---------- Footer ---------- */
 .footer {
+  width: 100%;
   max-width: var(--content);
   margin: 0 auto;
-  padding: 0 var(--gutter) 24px;
-  box-sizing: content-box;
-  display: flex; justify-content: space-between; gap: 16px;
-  font-size: 16px; line-height: 22px; letter-spacing: -0.16px;
-  color: rgba(31, 31, 31, .4);
+  padding: 24px 0;
+  border-top: 1px solid var(--stroke);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  font-size: 15px; line-height: 22px; letter-spacing: -0.15px;
+  color: rgba(31, 31, 31, .45);
 }
-.footer a { transition: color .2s var(--ease); }
-.footer a:hover { color: var(--text); }
+.footer__info { display: flex; flex-direction: column; gap: 2px; }
+.footer__time:empty { display: none; }
+.footer__top { transition: color .2s var(--ease); }
+.footer__top:hover { color: var(--text); }
 
 /* ---------- Toast ---------- */
 .toast {
@@ -748,7 +749,8 @@ h3 { font-size: inherit; font-weight: 400; }
 
 @media (max-width: 420px) {
   .project__head { flex-wrap: wrap; row-gap: 0; }
-  .footer { flex-direction: column; align-items: center; gap: 4px; }
+  .footer { flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .footer__info { align-items: center; }
 }
 
 /* ---------- Сенсорные экраны: у карточек нет ховера, при тапе — лёгкая заливка ---------- */
