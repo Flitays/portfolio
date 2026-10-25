@@ -556,16 +556,18 @@ h3 { font-size: inherit; font-weight: 400; }
 @media (max-width: 767px), (hover: none) {
   .dock {
     --base: 64px;
-    display: grid;
-    grid-template-columns: repeat(4, var(--base));
+    /* по 4 в ряд, неполный последний ряд — по центру */
+    display: flex; flex-wrap: wrap; align-items: flex-start;
     justify-content: center;
     gap: 16px;
+    max-width: calc(4 * var(--base) + 3 * 16px);
+    margin: 0 auto;
     height: auto;
     padding-top: 16px;
   }
   .dock__item[data-tip]::after { display: none; }
 }
-@media (max-width: 360px) { .dock { --base: 56px; gap: 12px; } }
+@media (max-width: 360px) { .dock { --base: 56px; gap: 12px; max-width: calc(4 * var(--base) + 3 * 12px); } }
 
 /* ---------- About ---------- */
 .about { width: 100%; max-width: 538px; display: flex; flex-direction: column; align-items: center; gap: 24px; }
