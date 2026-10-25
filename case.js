@@ -147,116 +147,26 @@
       counter.textContent = zoomImgs.length > 1 ? `${index + 1} / ${zoomImgs.length}` : '';
     };
     const go = (i) => {
-      if (i < 0 || i >= zoomImgs.length || i === index || busy) return;
+      if (i < 0 || i >= zoomImgs.length || i === index) return;
       big.classList.add('is-swapping');
       setTimeout(() => {
-        zoomImgs[index].style.visibility = '';
         set(i);
-        if (lb.classList.contains('is-flip')) zoomImgs[index].style.visibility = 'hidden';
         const done = () => big.classList.remove('is-swapping');
         if (big.complete) done(); else big.onload = done;
       }, 150);
     };
-
-    // «Бесшовное» открытие (FLIP): большая картинка стартует ровно с места и размера фото на странице
-    // и вырастает до полного; при закрытии садится обратно. Фон затемняется отдельно от картинки.
-    const FLIP_MS = 480;
-    const FLIP_EASE = 'cubic-bezier(.2, .8, .2, 1)';
-    let busy = false;
-    const radiusOf = (img) => parseFloat(getComputedStyle(img.closest('.picture, .solution__img') || img).borderTopLeftRadius) || 0;
-    // ставит картинку в модалке поверх фото на странице (без анимации)
-    const placeOver = (thumb) => {
-      big.style.transition = 'none';
-      big.style.transform = '';
-      big.style.borderRadius = '';
-      const b = big.getBoundingClientRect();
-      const t = thumb.getBoundingClientRect();
-      if (!b.width || !t.width) return false;
-      const sx = t.width / b.width, sy = t.height / b.height;
-      const r = radiusOf(thumb);
-      big.style.transformOrigin = '0 0';
-      big.style.transform = `translate(${t.left - b.left}px, ${t.top - b.top}px) scale(${sx}, ${sy})`;
-      big.style.borderRadius = `${r / sx}px / ${r / sy}px`;
-      return true;
-    };
-    const animateTo = (transform, radius, onEnd) => {
-      big.getBoundingClientRect(); // применить стартовое положение
-      big.style.transition = `transform ${FLIP_MS}ms ${FLIP_EASE}, border-radius ${FLIP_MS}ms ${FLIP_EASE}`;
-      big.style.transform = transform;
-      big.style.borderRadius = radius;
-      setTimeout(onEnd, FLIP_MS + 30);
-    };
-    const inView = (el) => { const r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight && r.width > 0; };
-    // блокируем прокрутку страницы, не давая ей сдвинуться на ширину полосы прокрутки
-    const lockScroll = () => {
-      const sb = innerWidth - document.documentElement.clientWidth;
-      document.documentElement.style.overflow = 'hidden';
-      if (sb > 0) document.documentElement.style.paddingRight = `${sb}px`;
-    };
-    const unlockScroll = () => {
-      document.documentElement.style.overflow = '';
-      document.documentElement.style.paddingRight = '';
-    };
-
     const open = (i) => {
-      if (busy) return;
       lastFocus = document.activeElement;
       set(i);
-      const thumb = zoomImgs[index];
       lb.setAttribute('aria-hidden', 'false');
-      lockScroll();
-      const canFlip = !reduceMotion && big.complete && big.naturalWidth > 0;
-      if (canFlip) {
-        lb.classList.add('is-flip');
-        if (placeOver(thumb)) {
-          busy = true;
-          thumb.style.visibility = 'hidden';
-          lb.getBoundingClientRect();
-          lb.classList.add('is-open');
-          animateTo('', '', () => { big.style.transition = ''; busy = false; });
-        } else {
-          lb.classList.remove('is-flip');
-          lb.classList.add('is-open');
-        }
-      } else {
-        lb.classList.add('is-open');
-      }
+      lb.classList.add('is-open');
+      document.documentElement.style.overflow = 'hidden';
       closeBtn.focus({ preventScroll: true });
     };
-    const finishClose = () => {
-      lb.classList.remove('is-open', 'is-closing', 'is-flip');
-      big.style.transition = 'none';
-      big.style.transform = '';
-      big.style.borderRadius = '';
-      big.style.transformOrigin = '';
-      zoomImgs.forEach((im) => { im.style.visibility = ''; });
-      lb.getBoundingClientRect();
-      big.style.transition = '';
-      busy = false;
-    };
     const close = () => {
-      if (busy || !lb.classList.contains('is-open')) return;
+      lb.classList.remove('is-open');
       lb.setAttribute('aria-hidden', 'true');
-      const thumb = zoomImgs[index];
-      if (lb.classList.contains('is-flip') && inView(thumb)) {
-        busy = true;
-        // конечное положение — место фото на странице
-        const b = big.getBoundingClientRect();
-        const t = thumb.getBoundingClientRect();
-        const sx = t.width / b.width, sy = t.height / b.height;
-        const r = radiusOf(thumb);
-        big.style.transformOrigin = '0 0';
-        lb.classList.add('is-closing');
-        animateTo(`translate(${t.left - b.left}px, ${t.top - b.top}px) scale(${sx}, ${sy})`, `${r / sx}px / ${r / sy}px`, () => {
-          unlockScroll();
-          finishClose();
-        });
-      } else {
-        lb.classList.remove('is-flip');
-        lb.classList.remove('is-open');
-        zoomImgs.forEach((im) => { im.style.visibility = ''; });
-        unlockScroll();
-      }
+      document.documentElement.style.overflow = '';
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
     zoomImgs.forEach((img, i) => {
