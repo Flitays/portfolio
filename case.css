@@ -726,3 +726,20 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .table tbody tr:first-child td:first-child { border-top-left-radius: 12px; }
 .table tbody tr:first-child td:last-child { border-top-right-radius: 12px; }
 .c-label--first { margin-top: 0; }
+
+/* ---------- Модалка картинок: «бесшовное» открытие (FLIP) ---------- */
+/* Сама модалка видна сразу, а затемнение, кнопки и счётчик проявляются отдельно — картинка не мигает */
+.case-lightbox.is-flip {
+  opacity: 1; visibility: visible;
+  background: rgba(20, 20, 20, 0);
+  -webkit-backdrop-filter: blur(0); backdrop-filter: blur(0);
+  transition: background-color .4s var(--ease), -webkit-backdrop-filter .4s var(--ease), backdrop-filter .4s var(--ease);
+}
+.case-lightbox.is-flip.is-open:not(.is-closing) {
+  background: rgba(20, 20, 20, .82);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.case-lightbox.is-flip .case-lightbox__img { opacity: 1; filter: none; transform: none; }
+.case-lightbox.is-flip :is(.case-lightbox__btn, .case-lightbox__counter) { opacity: 0; transition: opacity .3s var(--ease); }
+.case-lightbox.is-flip.is-open:not(.is-closing) :is(.case-lightbox__btn, .case-lightbox__counter) { opacity: 1; }
+.case-lightbox.is-closing { pointer-events: none; }

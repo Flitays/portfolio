@@ -187,27 +187,101 @@
       lbImg.src = btn.dataset.large;
       lbImg.alt = btn.querySelector('img').alt;
     };
+    // «Бесшовное» открытие (FLIP): фото вырастает из своей карточки (с её наклоном) и садится обратно при закрытии
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const FLIP_MS = 480;
+    const FLIP_EASE = 'cubic-bezier(.2, .8, .2, 1)';
+    let busy = false;
+    // положение фото на странице относительно картинки в модалке: сдвиг центров, масштаб и наклон карточки
+    const thumbTransform = (btn) => {
+      const im = btn.querySelector('img');
+      const t = btn.getBoundingClientRect();
+      const b = lbImg.getBoundingClientRect();
+      const m = new DOMMatrix(getComputedStyle(btn).transform);
+      const angle = Math.atan2(m.b, m.a) * 180 / Math.PI;
+      const sx = im.offsetWidth / lbImg.offsetWidth;
+      const sy = im.offsetHeight / lbImg.offsetHeight;
+      const dx = (t.left + t.width / 2) - (b.left + b.width / 2);
+      const dy = (t.top + t.height / 2) - (b.top + b.height / 2);
+      const r = parseFloat(getComputedStyle(im).borderTopLeftRadius) || 0;
+      return { transform: `translate(${dx}px, ${dy}px) rotate(${angle}deg) scale(${sx}, ${sy})`, radius: `${r / sx}px / ${r / sy}px` };
+    };
+    const animateTo = (transform, radius, onEnd) => {
+      lbImg.getBoundingClientRect();
+      lbImg.style.transition = `transform ${FLIP_MS}ms ${FLIP_EASE}, border-radius ${FLIP_MS}ms ${FLIP_EASE}`;
+      lbImg.style.transform = transform;
+      lbImg.style.borderRadius = radius;
+      setTimeout(onEnd, FLIP_MS + 30);
+    };
+    const lockScroll = () => {
+      const sb = innerWidth - document.documentElement.clientWidth;
+      document.documentElement.style.overflow = 'hidden';
+      if (sb > 0) document.documentElement.style.paddingRight = `${sb}px`;
+    };
+    const unlockScroll = () => {
+      document.documentElement.style.overflow = '';
+      document.documentElement.style.paddingRight = '';
+    };
     const open = (i) => {
+      if (busy) return;
       lastFocus = document.activeElement;
       show(i);
       lightbox.setAttribute('aria-hidden', 'false');
-      lightbox.classList.add('is-open');
-      document.documentElement.style.overflow = 'hidden';
+      lockScroll();
+      const btn = photos[index];
+      if (!reduceMotion && lbImg.complete && lbImg.naturalWidth > 0) {
+        busy = true;
+        lightbox.classList.add('is-flip');
+        lbImg.style.transition = 'none';
+        const start = thumbTransform(btn);
+        lbImg.style.transform = start.transform;
+        lbImg.style.borderRadius = start.radius;
+        btn.style.visibility = 'hidden';
+        lightbox.getBoundingClientRect();
+        lightbox.classList.add('is-open');
+        animateTo('', '', () => { lbImg.style.transition = ''; busy = false; });
+      } else {
+        lightbox.classList.add('is-open');
+      }
       lightbox.querySelector('.lightbox__btn--close').focus({ preventScroll: true });
     };
+    const finishClose = () => {
+      lightbox.classList.remove('is-open', 'is-closing', 'is-flip');
+      lbImg.style.transition = 'none';
+      lbImg.style.transform = '';
+      lbImg.style.borderRadius = '';
+      photos.forEach((b) => { b.style.visibility = ''; });
+      lightbox.getBoundingClientRect();
+      lbImg.style.transition = '';
+      busy = false;
+    };
     const close = () => {
-      lightbox.classList.remove('is-open');
+      if (busy || !lightbox.classList.contains('is-open')) return;
       lightbox.setAttribute('aria-hidden', 'true');
-      document.documentElement.style.overflow = '';
+      const btn = photos[index];
+      const r = btn.getBoundingClientRect();
+      if (lightbox.classList.contains('is-flip') && r.bottom > 0 && r.top < innerHeight) {
+        busy = true;
+        const end = thumbTransform(btn);
+        lightbox.classList.add('is-closing');
+        animateTo(end.transform, end.radius, () => { unlockScroll(); finishClose(); });
+      } else {
+        lightbox.classList.remove('is-open', 'is-flip');
+        photos.forEach((b) => { b.style.visibility = ''; });
+        unlockScroll();
+      }
       if (lastFocus) lastFocus.focus({ preventScroll: true });
     };
     // Смена фото: уходит в блюр и проявляется следующее
     const swap = (dir) => {
+      if (busy) return;
       lbImg.style.transition = 'opacity .15s, filter .15s';
       lbImg.style.opacity = '0';
       lbImg.style.filter = 'blur(8px)';
       setTimeout(() => {
+        photos[index].style.visibility = '';
         show(index + dir);
+        if (lightbox.classList.contains('is-flip')) photos[index].style.visibility = 'hidden';
         const done = () => {
           lbImg.style.opacity = '';
           lbImg.style.filter = '';
