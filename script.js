@@ -246,12 +246,15 @@
       lightbox.querySelector('.lightbox__btn--close').focus({ preventScroll: true });
     };
     const finishClose = () => {
+      // без переходов: иначе модалка на миг возвращается к обычному тёмному фону и гаснет («моргает»)
+      lightbox.style.transition = 'none';
       lightbox.classList.remove('is-open', 'is-closing', 'is-flip');
       lbImg.style.transition = 'none';
       lbImg.style.transform = '';
       lbImg.style.borderRadius = '';
       photos.forEach((b) => { b.style.visibility = ''; });
       lightbox.getBoundingClientRect();
+      lightbox.style.transition = '';
       lbImg.style.transition = '';
       busy = false;
     };

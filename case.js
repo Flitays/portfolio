@@ -224,6 +224,8 @@
       closeBtn.focus({ preventScroll: true });
     };
     const finishClose = () => {
+      // без переходов: иначе модалка на миг возвращается к обычному тёмному фону и гаснет («моргает»)
+      lb.style.transition = 'none';
       lb.classList.remove('is-open', 'is-closing', 'is-flip');
       big.style.transition = 'none';
       big.style.transform = '';
@@ -231,6 +233,7 @@
       big.style.transformOrigin = '';
       zoomImgs.forEach((im) => { im.style.visibility = ''; });
       lb.getBoundingClientRect();
+      lb.style.transition = '';
       big.style.transition = '';
       busy = false;
     };
