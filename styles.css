@@ -202,10 +202,7 @@ h3 { font-size: inherit; font-weight: 400; }
 .inline-link:hover, .inline-link:focus-visible { text-decoration-color: rgba(31, 31, 31, .7); }
 .inline-logo { display: inline-block; width: 16px; height: 16px; border-radius: 4px; vertical-align: -3px; margin: 0 4px 0 1px; transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
 .inline-link:hover .inline-logo, .inline-link:focus-visible .inline-logo { transform: rotate(-12deg) scale(1.1); }
-/* Эмодзи в тексте «Немного обо мне»: чуть крупнее строки, покачиваются при наведении */
-.inline-emoji { display: inline-block; margin-right: 4px; font-size: 1.05em; line-height: 1; transition: transform .3s cubic-bezier(.34,1.56,.64,1); cursor: default; }
-.inline-emoji:hover { transform: rotate(-12deg) scale(1.2); }
-@media (prefers-reduced-motion: reduce) { .inline-logo, .inline-emoji { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .inline-logo { transition: none; } }
 
 /* ---------- Cards ---------- */
 .card {
