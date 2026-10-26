@@ -49,16 +49,12 @@
   transition: background-color .2s;
 }
 .contact__row:hover, .contact__row:focus-visible { background: #F4F4F4; }
-/* разделитель между пунктами: короче строки на радиус скругления с каждой стороны,
-   прячется у пункта под курсором и у соседнего сверху — без «ушек» у подсветки */
+/* разделитель между пунктами: короче строки на радиус скругления с каждой стороны — без «ушек» у подсветки */
 .contact__row { position: relative; }
 .contact__row:not(:last-child)::after {
   content: ""; position: absolute; left: 16px; right: 16px; bottom: 0;
   height: 1px; background: #EEEEEE;
-  transition: opacity .2s;
 }
-.contact__row:is(:hover, :focus-visible)::after,
-.contact__row:has(+ .contact__row:is(:hover, :focus-visible))::after { opacity: 0; }
 .contact__icon { display: grid; place-items: center; color: rgba(31, 31, 31, .35); }
 .contact__icon svg { width: 20px; height: auto; display: block; }
 /* оптическая подгонка: у иконок разная форма, поэтому разная ширина, чтобы на глаз они были одного размера */
