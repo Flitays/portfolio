@@ -482,24 +482,14 @@
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Где я сейчас и погода там (Open-Meteo, без ключа): «Нахожусь в Нячанге, где 30°C»
+  // Где я сейчас и местное время там: «Нахожусь в Нячанге, где сейчас 12:33»; обновляется раз в минуту
   const localTime = document.querySelector('[data-local-time]');
   if (localTime) {
-    const { city, lat, lon } = localTime.dataset;
-    let weather = '';
-    const render = () => { localTime.textContent = `Нахожусь ${city}${weather}`; };
+    const { tz, city } = localTime.dataset;
+    const fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: tz });
+    const render = () => { localTime.textContent = `Нахожусь ${city}, где сейчас ${fmt.format(new Date())}`; };
     render();
-    if (lat && lon && window.fetch) {
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&timezone=auto`)
-        .then((r) => (r.ok ? r.json() : Promise.reject()))
-        .then((d) => {
-          const c = d && d.current;
-          if (!c) return;
-          weather = `, где ${Math.round(c.temperature_2m)}°C`;
-          render();
-        })
-        .catch(() => {});
-    }
+    setInterval(render, 60000);
   }
 
   // Видео-аватар: пауза, если вкладка не видна (экономим батарею)
