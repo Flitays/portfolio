@@ -482,32 +482,20 @@
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Где я сейчас и погода там (Open-Meteo, без ключа): «Нахожусь в Нячанге, где переменная облачность, 30°C»
+  // Где я сейчас и погода там (Open-Meteo, без ключа): «Нахожусь в Нячанге, где 30°C»
   const localTime = document.querySelector('[data-local-time]');
   if (localTime) {
     const { city, lat, lon } = localTime.dataset;
     let weather = '';
     const render = () => { localTime.textContent = `Нахожусь ${city}${weather}`; };
     render();
-    const describe = (code) => {
-      if (code === 0) return 'Ясно';
-      if (code <= 2) return 'Переменная облачность';
-      if (code === 3) return 'Пасмурно';
-      if (code <= 48) return 'Туман';
-      if (code <= 57) return 'Морось';
-      if (code <= 67) return 'Дождь';
-      if (code <= 77) return 'Снег';
-      if (code <= 82) return 'Ливень';
-      if (code <= 86) return 'Снегопад';
-      return 'Гроза';
-    };
     if (lat && lon && window.fetch) {
-      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m,weather_code&timezone=auto`)
+      fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m&timezone=auto`)
         .then((r) => (r.ok ? r.json() : Promise.reject()))
         .then((d) => {
           const c = d && d.current;
           if (!c) return;
-          weather = `, где ${describe(c.weather_code).toLowerCase()}, ${Math.round(c.temperature_2m)}°C`;
+          weather = `, где ${Math.round(c.temperature_2m)}°C`;
           render();
         })
         .catch(() => {});
