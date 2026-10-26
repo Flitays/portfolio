@@ -482,15 +482,13 @@
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Местное время и погода в футере (погода — Open-Meteo, без ключа); время обновляется раз в минуту
+  // Где я сейчас и погода там (Open-Meteo, без ключа): «Нахожусь в Нячанге, где переменная облачность, 30°C»
   const localTime = document.querySelector('[data-local-time]');
   if (localTime) {
-    const { tz, city, lat, lon } = localTime.dataset;
-    const fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: tz });
+    const { city, lat, lon } = localTime.dataset;
     let weather = '';
-    const render = () => { localTime.textContent = `${fmt.format(new Date())} ${city}${weather}`; };
+    const render = () => { localTime.textContent = `Нахожусь ${city}${weather}`; };
     render();
-    setInterval(render, 60000);
     const describe = (code) => {
       if (code === 0) return 'Ясно';
       if (code <= 2) return 'Переменная облачность';
@@ -509,7 +507,7 @@
         .then((d) => {
           const c = d && d.current;
           if (!c) return;
-          weather = ` · ${describe(c.weather_code)}, ${Math.round(c.temperature_2m)}°C`;
+          weather = `, где ${describe(c.weather_code).toLowerCase()}, ${Math.round(c.temperature_2m)}°C`;
           render();
         })
         .catch(() => {});
