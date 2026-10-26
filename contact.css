@@ -49,6 +49,16 @@
   transition: background-color .2s;
 }
 .contact__row:hover, .contact__row:focus-visible { background: #F4F4F4; }
+/* разделитель между пунктами: короче строки на радиус скругления с каждой стороны,
+   прячется у пункта под курсором и у соседнего сверху — без «ушек» у подсветки */
+.contact__row { position: relative; }
+.contact__row:not(:last-child)::after {
+  content: ""; position: absolute; left: 16px; right: 16px; bottom: 0;
+  height: 1px; background: #EEEEEE;
+  transition: opacity .2s;
+}
+.contact__row:is(:hover, :focus-visible)::after,
+.contact__row:has(+ .contact__row:is(:hover, :focus-visible))::after { opacity: 0; }
 .contact__icon { display: grid; place-items: center; color: rgba(31, 31, 31, .35); }
 .contact__icon svg { width: 20px; height: auto; display: block; }
 /* оптическая подгонка: у иконок разная форма, поэтому разная ширина, чтобы на глаз они были одного размера */
@@ -56,6 +66,7 @@
 .contact__icon--tg svg { width: 19px; }
 .contact__icon--ig svg { width: 17px; }
 .contact__icon--pin svg { width: 18px; }
+.contact__icon--cv svg { width: 15px; }
 .contact__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .contact__label { font-size: 14px; line-height: 20px; color: rgba(31, 31, 31, .5); }
 .contact__value { font-size: 16px; line-height: 22px; letter-spacing: -0.01em; overflow-wrap: anywhere; }
