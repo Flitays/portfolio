@@ -698,7 +698,6 @@ h3 { font-size: inherit; font-weight: 400; }
   color: rgba(31, 31, 31, .45);
 }
 .footer__info { display: flex; flex-direction: column; gap: 2px; }
-.footer__time:empty { display: none; }
 .footer__top { transition: color .2s var(--ease); }
 .footer__top:hover { color: var(--text); }
 

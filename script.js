@@ -482,16 +482,6 @@
   const year = document.querySelector('[data-year]');
   if (year) year.textContent = new Date().getFullYear();
 
-  // Где я сейчас и местное время там: «Нахожусь в Нячанге, где сейчас 12:33»; обновляется раз в минуту
-  const localTime = document.querySelector('[data-local-time]');
-  if (localTime) {
-    const { tz, city } = localTime.dataset;
-    const fmt = new Intl.DateTimeFormat('ru-RU', { hour: '2-digit', minute: '2-digit', timeZone: tz });
-    const render = () => { localTime.textContent = `Нахожусь ${city}, где сейчас ${fmt.format(new Date())}`; };
-    render();
-    setInterval(render, 60000);
-  }
-
   // Видео-аватар: пауза, если вкладка не видна (экономим батарею)
   const video = document.querySelector('.avatar__video');
   if (video) {
